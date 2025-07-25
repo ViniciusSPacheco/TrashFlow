@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
-const Controller = require("./controller/controller");
+const { Controller, upload } = require("./controller/controller");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,8 +23,14 @@ app.get("/login", (req, res) => Controller.Login(req, res));
 app.get("/cadastroempresa", somenteEmpresa, (req, res) =>
   Controller.Empresa(req, res)
 );
+app.get("/logout", (req, res) => Controller.Deslogar(req, res));
+app.get("/cadastroideia", (req, res) => Controller.Ideia(req, res));
+///aqui pra baixo são os posts
 app.post("/login", (req, res) => Controller.Logar(req, res));
 app.post("/cadastrar", (req, res) => Controller.Cadastrar(req, res));
+app.post("/cadastrarideia", upload.single("img"), (req, res) =>
+  Controller.CadastrarIdeia(req, res)
+);
 
 app.listen(3030, (error) => {
   if (!error) {
