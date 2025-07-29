@@ -10,11 +10,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "views")));
 
 function somenteEmpresa(req, res, next) {
-  const permissao = req.cookies.permissao;
-  if (permissao === "empresa") {
-    next();
-  } else {
-    res.status(403).send("Acesso restrito para empresas.");
+  try {
+    const cookie = req.cookies.permissao;
+
+    if (!cookie) {
+      return res.status(403).send("Permissão não encontrada.");
+    }
+
+    const permissao = JSON.parse(cookie);
+
+    if (permissao.tipo === "empresa") {
+      return next();
+    } else {
+      return res.status(403).send("Acesso restrito para empresas.");
+    }
+  } catch (error) {
+    console.error("Erro ao verificar permissão:", error);
+    return res.status(403).send("Permissão inválida.");
   }
 }
 
@@ -30,6 +42,13 @@ app.post("/login", (req, res) => Controller.Logar(req, res));
 app.post("/cadastrar", (req, res) => Controller.Cadastrar(req, res));
 app.post("/cadastrarideia", upload.single("img"), (req, res) =>
   Controller.CadastrarIdeia(req, res)
+);
+app.post("/cadastroempresa", somenteEmpresa, (req, res) =>
+  Controller.CadastroEmpresa(req, res)
+);
+
+app.post("/atualizarusuario", (req, res) =>
+  Controller.AtualizarUsuario(req, res)
 );
 
 app.listen(3030, (error) => {
