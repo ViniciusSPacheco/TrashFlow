@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" href="./public/css/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <title>TrashFlow</title>
+</head>
+
+<body>
+    <div id="home" class="container">
+        <header>
+            <div class="logo">
+                <img src="./public/TrashflowLogo 2.png" alt="">
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li>Quem somos</li>
+                    <li>Ideias de Reciclagem</li>
+                    <li>Empresas cadastradas</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+
+            <div class="btn">
+                <select id="options" name="options">
+                    <option value="maca">Entrar</option>
+                    <option value="banana">Cadastrar</option>
+                    <option value="laranja">Deslogar</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="hero">
+            <h1>Bem-vindo ao TrashFlow</h1>
+            <p>Encontre locais para descarte correto de recicláveis e inspire-se com ideias criativas para reaproveitar
+                materiais e reduzir impactos ambientais.</p>
+        </div>
+
+
+        <div class="main">
+            <h1>
+                Tenha acesso a locais de descarte e ideias de reciclagem
+            </h1>
+
+            <div class="content">
+                <div class="text">
+                    <h2 class="text-item">Acessar locais de empresas</h2>
+                    <h2 class="text-item"> Acessar ideias recicláveis</h2>
+                </div>
+
+                <div class="image">
+                    <img src="./public//RECICLOOO 1.png" alt="">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="info">
+        <h1>tenha mais informações sobre!!</h1>
+    </div>
+
+
+    <div class="carrosel">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Reciclagem de plástico" />
+                    <h3>Reciclagem de Plástico</h3>
+                    <p>Aprenda como transformar garrafas plásticas em itens úteis para sua casa.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1584977046800-f8d2f0e0a75a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Pontos de coleta" />
+                    <h3>Pontos de Coleta</h3>
+                    <p>Encontre os melhores locais para descartar seus materiais recicláveis.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Reciclagem de papel" />
+                    <h3>Reciclagem de Papel</h3>
+                    <p>Ideias criativas para reutilizar papel e reduzir o desperdício.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Reciclagem eletrônica" />
+                    <h3>E-lixo</h3>
+                    <p>Saiba como descartar corretamente seus eletrônicos antigos.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Compostagem" />
+                    <h3>Compostagem</h3>
+                    <p>Aprenda a transformar resíduos orgânicos em adubo de qualidade.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1590845947676-fa2576f401d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                        alt="Reciclagem de vidro" />
+                    <h3>Reciclagem de Vidro</h3>
+                    <p>Descubra como vidros podem ser transformados em belos objetos decorativos.</p>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+        <!-- Initialize Swiper -->
+        <script>
+            var swiper = new Swiper(".mySwiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 100,
+                    modifier: 2,
+                    slideShadows: true,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+        </script>
+</body>
+
+</html>
