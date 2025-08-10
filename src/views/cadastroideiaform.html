@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home - TrashFlow</title>
-    <link rel="stylesheet" href="public/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Ideia - Trash-Flow</title>
+    <link rel="stylesheet" href="public/css/formeideias.css">
 </head>
 
 <body>
     <header>
         <div class="logo">
-            <img src="./public/TrashflowLogo 2.png" alt="">
+            <img src="./public/TrashflowLogo 2.png" alt="TrashFlow Logo" />
         </div>
         <div class="navbar">
             <ul>
@@ -20,31 +21,41 @@
                 <li>Contato</li>
             </ul>
         </div>
-
         <div class="btn">
             <select id="options" name="options">
                 <option value="login">Entrar</option>
-                <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
+                <option value="cadastro">Cadastrar</option>
                 <option value="logout">Deslogar</option>
             </select>
         </div>
     </header>
 
+    <main class="container">
+        <form class="form-ideias" action="/cadastrarideia" method="POST" enctype="multipart/form-data">
+            <h2>Compartilhe sua Ideia</h2>
 
-    <main>
-        <main class="container">
-            <div class="form-container">
-                <div class="text">
-                    <h1>Area do login</h1>
-                    <p>Suas informações para o cadastro</p>
-                </div>
-                <form action="/login" method="POST">
-                    <input type="email" name="email" placeholder="Digite seu email" required>
-                    <input type="password" name="senha" placeholder="Digite sua senha" required>
-                    <button type="submit">Cadastrar</button>
-                </form>
+            <div class="form-group">
+                <label for="titulo">Título da Ideia *</label>
+                <input type="text" id="titulo" name="titulo" required>
             </div>
-        </main>
+
+            <div class="form-group">
+                <label for="descricao">Descrição *</label>
+                <textarea id="descricao" name="descricao" rows="5" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="passo">Passo a Passo *</label>
+                <input type="text" id="passo" name="passo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="img">Imagem (opcional)</label>
+                <input type="file" id="img" name="img" accept="image/*">
+            </div>
+
+            <button type="submit">Enviar Ideia</button>
+        </form>
     </main>
 
     <script>

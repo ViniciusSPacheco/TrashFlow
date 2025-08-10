@@ -1,0 +1,263 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7); /* branco translúcido */
+  backdrop-filter: blur(6px); /* vidro fosco (opcional) */
+  z-index: 10;
+
+  box-shadow: 0 2px 15px rgba(46, 91, 11, 0.2);
+  border-bottom: 1px solid rgba(98, 173, 18, 0.3);
+}
+
+.logo img {
+  width: 80px;
+  height: auto;
+  transition: transform 0.3s ease;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar ul li {
+  margin: 0 60px;
+  font-size: 22px;
+  font-weight: 500;
+  color: #3a3a3a;
+  cursor: pointer;
+  position: relative;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+.navbar ul li:hover {
+  color: #62ad12;
+}
+
+.navbar ul li::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #62ad12;
+  transition: width 0.3s ease;
+}
+
+.navbar ul li:hover::after {
+  width: 100%;
+}
+
+.btn select {
+  appearance: none;
+  background-color: #4a9c0d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(74, 156, 13, 0.3);
+}
+
+.btn select:hover {
+  background-color: #3e850b;
+  transform: translateY(-2px);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 130px;
+}
+
+h1 {
+  color: #4a9c0d;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-weight: 700;
+  color: #1c5179;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.main {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 30px 30px;
+  box-shadow: 9px 8px 8px 5px rgba(0, 0, 0, 0.3);
+  margin-top: 60px;
+  border-radius: 12px;
+  margin-bottom: 60px;
+}
+
+.card {
+  display: flex;
+  flex-wrap: wrap; /* Para melhor responsividade */
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.lista {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-size: 18px;
+}
+
+.lista li img {
+  width: 32px;
+  height: auto;
+}
+
+.lista li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.mapa {
+  flex: 1;
+  min-width: 350px;
+  min-height: 300px;
+  height: 100%;
+}
+
+.mapa .map {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Para Leaflet map (se estiver usando .map como classe nos mapas) */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  border-radius: 10px;
+}
+
+
+/* Footer */
+footer {
+    background-color: #2e5b0b;
+    color: white;
+    padding: 3rem 10% 1rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.footer-logo img {
+    margin-bottom: 1rem;
+}
+
+.footer-links ul, .footer-contact {
+    list-style: none;
+}
+
+.footer-links a, .footer-contact p {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-icons img {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.social-icons img:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    section {
+        padding: 4rem 5%;
+    }
+    
+    .hero, .about-section {
+        flex-direction: column;
+    }
+    
+    .hero-content, .about-content {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+    
+    .mission-section, .impact-grid {
+        flex-direction: column;
+    }
+    
+    .cta-section {
+        margin: 3rem 5%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+}

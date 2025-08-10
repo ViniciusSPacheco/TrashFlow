@@ -1,52 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Home - TrashFlow</title>
-    <link rel="stylesheet" href="public/css/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./public/css/cadastro.css">
 </head>
 
 <body>
-    <header>
-        <div class="logo">
-            <img src="./public/TrashflowLogo 2.png" alt="">
-        </div>
-        <div class="navbar">
-            <ul>
-                <li>Quem somos</li>
-                <li>Ideias de Reciclagem</li>
-                <li>Empresas cadastradas</li>
-                <li>Contato</li>
-            </ul>
-        </div>
+    <div id="cadastro">
 
-        <div class="btn">
-            <select id="options" name="options">
-                <option value="login">Entrar</option>
-                <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
-                <option value="logout">Deslogar</option>
-            </select>
-        </div>
-    </header>
+        <header>
+            <div class="logo">
+                <img src="./public/TrashflowLogo 2.png" alt="">
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li>Quem somos</li>
+                    <li>Ideias de Reciclagem</li>
+                    <li>Empresas cadastradas</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+
+            <div class="btn">
+                <select id="options" name="options">
+                    <option value="maca">Entrar</option>
+                    <option value="banana">Cadastrar</option>
+                    <option value="laranja">Deslogar</option>
+                </select>
+            </div>
+        </header>
 
 
-    <main>
         <main class="container">
             <div class="form-container">
                 <div class="text">
-                    <h1>Area do login</h1>
+                    <h1>Área do Usuário</h1>
                     <p>Suas informações para o cadastro</p>
                 </div>
-                <form action="/login" method="POST">
+                <form action="/cadastrar" method="POST">
+                    <input type="text" name="nome" placeholder="Digite seu nome" required>
                     <input type="email" name="email" placeholder="Digite seu email" required>
                     <input type="password" name="senha" placeholder="Digite sua senha" required>
+
+                    <label for="permissao">Deseja se cadastrar como empresa?</label>
+                    <select id="permissao" name="permissao" required>
+                        <option value="" disabled selected>Selecione uma opção</option>
+                        <option value="empresa">Sim</option>
+                        <option value="usuario">Não</option>
+                    </select>
+
                     <button type="submit">Cadastrar</button>
                 </form>
             </div>
         </main>
-    </main>
 
+    </div>
     <script>
         const listItems = document.getElementsByTagName('li');
 
@@ -80,6 +91,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

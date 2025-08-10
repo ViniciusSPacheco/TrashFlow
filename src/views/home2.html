@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <title>TrashFlow - Conectando você à reciclagem</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./public/style.css">
-    <link rel="stylesheet" href="./public/css/home.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <title>TrashFlow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./public/css/home.css">
 </head>
 
 <body>
     <div id="home" class="container">
         <header>
             <div class="logo">
-                <img src="./public/TrashflowLogo 2.png" alt="">
+                <img src="./public/TrashflowLogo 2.png" alt="TrashFlow Logo">
             </div>
             <div class="navbar">
                 <ul>
@@ -28,113 +31,288 @@
 
             <div class="btn">
                 <select id="options" name="options">
-                    <option value="maca">Entrar</option>
-                    <option value="banana">Cadastrar</option>
-                    <option value="laranja">Deslogar</option>
+                    <option value="login">Entrar</option>
+                    <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
+                    <option value="logout">Deslogar</option>
                 </select>
             </div>
         </header>
 
-        <div class="hero">
-            <h1>Bem-vindo ao TrashFlow</h1>
-            <p>Encontre locais para descarte correto de recicláveis e inspire-se com ideias criativas para reaproveitar
-                materiais e reduzir impactos ambientais.</p>
-        </div>
+        <!-- Hero Section Modernizada -->
+        <section class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Transforme seu lixo em solução</h1>
+                <p class="hero-subtitle">Encontre os melhores locais para descarte ecológico e descubra como pequenas
+                    ações podem gerar grandes impactos ambientais.</p>
+                <button class="hero-cta">Comece agora</button>
+            </div>
+        </section>
 
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="content-container">
+                <h2 class="section-title">Tenha acesso a locais de descarte e ideias criativas de reciclagem</h2>
 
-        <div class="main">
-            <h1>
-                Tenha acesso a locais de descarte e ideias de reciclagem
-            </h1>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Locais de coleta</h3>
+                        <p>Encontre os pontos de coleta mais próximos de você para diversos tipos de materiais
+                            recicláveis.</p>
+                        <button class="feature-button">Explorar locais</button>
+                    </div>
 
-            <div class="content">
-                <div class="text">
-                    <h2 class="text-item">Acessar locais de empresas</h2>
-                    <h2 class="text-item"> Acessar ideias recicláveis</h2>
-                </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Ideias sustentáveis</h3>
+                        <p>Descubra como transformar resíduos em objetos úteis e decorativos com nossas ideias
+                            criativas.</p>
+                        <button class="feature-button">Ver ideias</button>
+                    </div>
 
-                <div class="image">
-                    <img src="./public//RECICLOOO 1.png" alt="">
+                    <div class="feature-image">
+                        <img src="./public/RECICLOOO 1.png" alt="Reciclagem criativa" class="animated-image">
+                        <div class="image-overlay">
+                            <p>Juntos podemos fazer a diferença!</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-        </div>
-
-    </div>
-
-
-    <div class="info">
-        <h1>tenha mais informações sobre!!</h1>
-    </div>
-
-
-    <div class="carrosel">
-        <!-- Swiper -->
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Reciclagem de plástico" />
-                    <h3>Reciclagem de Plástico</h3>
-                    <p>Aprenda como transformar garrafas plásticas em itens úteis para sua casa.</p>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1584977046800-f8d2f0e0a75a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Pontos de coleta" />
-                    <h3>Pontos de Coleta</h3>
-                    <p>Encontre os melhores locais para descartar seus materiais recicláveis.</p>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Reciclagem de papel" />
-                    <h3>Reciclagem de Papel</h3>
-                    <p>Ideias criativas para reutilizar papel e reduzir o desperdício.</p>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Reciclagem eletrônica" />
-                    <h3>E-lixo</h3>
-                    <p>Saiba como descartar corretamente seus eletrônicos antigos.</p>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Compostagem" />
-                    <h3>Compostagem</h3>
-                    <p>Aprenda a transformar resíduos orgânicos em adubo de qualidade.</p>
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://images.unsplash.com/photo-1590845947676-fa2576f401d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                        alt="Reciclagem de vidro" />
-                    <h3>Reciclagem de Vidro</h3>
-                    <p>Descubra como vidros podem ser transformados em belos objetos decorativos.</p>
+        <!-- Info Section -->
+        <section class="info-section">
+            <div class="info-overlay"></div>
+            <div class="info-content">
+                <h2>Por que reciclar é importante?</h2>
+                <p class="info-text">Cada tonelada de papel reciclado poupa 22 árvores, consome 71% menos energia
+                    elétrica e representa 74% menos poluição do ar.</p>
+                <div class="info-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">80%</span>
+                        <span class="stat-label">Redução de resíduos em aterros</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50x</span>
+                        <span class="stat-label">Mais eficiente que coleta comum</span>
+                    </div>
                 </div>
             </div>
-            <div class="swiper-pagination"></div>
-        </div>
+        </section>
 
-        <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- Carrossel de Ideias -->
+        <section class="ideas-section">
+            <div class="section-header">
+                <h2>Inspire-se com nossas ideias de reciclagem</h2>
+                <p class="section-subtitle">Descubra como transformar o que seria lixo em peças úteis e decorativas</p>
+            </div>
 
-        <!-- Initialize Swiper -->
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-                effect: "coverflow",
-                grabCursor: true,
-                centeredSlides: true,
-                slidesPerView: "auto",
-                coverflowEffect: {
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 100,
-                    modifier: 2,
-                    slideShadows: true,
+            <div class="swiper ideas-swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide idea-slide">
+                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 1">
+                        <div class="slide-content">
+                            <h3>Móveis com pallets</h3>
+                            <p>Crie sofás, mesas e prateleiras reaproveitando pallets de madeira.</p>
+                            <div class="idea-meta">
+                                <span><i class="fas fa-clock"></i> 4-6 horas</span>
+                                <span><i class="fas fa-star"></i> Fácil</span>
+                            </div>
+                            <button class="idea-button">Ver tutorial</button>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide idea-slide">
+                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 2">
+                        <div class="slide-content">
+                            <h3>Vasos com garrafas PET</h3>
+                            <p>Transforme garrafas plásticas em lindos vasos para sua horta ou jardim.</p>
+                            <div class="idea-meta">
+                                <span><i class="fas fa-clock"></i> 1-2 horas</span>
+                                <span><i class="fas fa-star"></i> Muito fácil</span>
+                            </div>
+                            <button class="idea-button">Ver tutorial</button>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide idea-slide">
+                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 3">
+                        <div class="slide-content">
+                            <h3>Organizadores com caixas</h3>
+                            <p>Caixas de leite e suco podem virar práticos organizadores para sua casa.</p>
+                            <div class="idea-meta">
+                                <span><i class="fas fa-clock"></i> 2-3 horas</span>
+                                <span><i class="fas fa-star"></i> Fácil</span>
+                            </div>
+                            <button class="idea-button">Ver tutorial</button>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide idea-slide">
+                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 4">
+                        <div class="slide-content">
+                            <h3>Arte com CDs antigos</h3>
+                            <p>Crie mosaicos e decorações luminosas com CDs que não usa mais.</p>
+                            <div class="idea-meta">
+                                <span><i class="fas fa-clock"></i> 3-5 horas</span>
+                                <span><i class="fas fa-star"></i> Intermediário</span>
+                            </div>
+                            <button class="idea-button">Ver tutorial</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="faq-container">
+                <h2>Perguntas Frequentes</h2>
+                <p class="faq-subtitle">Tire suas dúvidas sobre reciclagem e nossa plataforma</p>
+
+                <div class="faq-grid">
+                    <details class="faq-item">
+                        <summary>O que é reciclagem?</summary>
+                        <div class="faq-content">
+                            <p>A reciclagem é o processo de transformar resíduos em novos produtos, reduzindo o consumo
+                                de matéria-prima e o impacto ambiental. Isso inclui coletar, separar e processar
+                                materiais que seriam descartados como lixo para serem reintroduzidos no ciclo de
+                                produção.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Quais materiais podem ser reciclados?</summary>
+                        <div class="faq-content">
+                            <p>Materiais como papel, plástico, vidro e metal são comumente recicláveis, desde que
+                                estejam limpos e secos. Alguns tipos específicos incluem: garrafas PET, latas de
+                                alumínio, jornais, caixas de papelão, frascos de vidro e embalagens longa vida.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Como a plataforma ajuda o meio ambiente?</summary>
+                        <div class="faq-content">
+                            <p>Nossa plataforma conecta usuários a iniciativas sustentáveis, promovendo ações de coleta
+                                seletiva, reciclagem e educação ambiental. Facilitamos o encontro entre quem quer
+                                descartar resíduos corretamente e quem pode transformá-los em novos produtos, reduzindo
+                                o impacto ambiental.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Como posso me cadastrar na plataforma?</summary>
+                        <div class="faq-content">
+                            <p>Você pode se cadastrar clicando no botão "Cadastrar" no menu principal e preenchendo o
+                                formulário com suas informações básicas. O cadastro é rápido, gratuito e você ganha
+                                acesso a todos os recursos da plataforma, incluindo localização de pontos de coleta e
+                                ideias de reciclagem.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="./public/TrashflowLogo 2.png" alt="Trashflow Logo" width="120">
+                    <p>Transformando resíduos em oportunidades desde 2020.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#">Quem somos</a></li>
+                        <li><a href="#">Ideias de Reciclagem</a></li>
+                        <li><a href="#">Empresas cadastradas</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-envelope"></i> contato@trashflow.com.br</p>
+                    <p><i class="fas fa-phone"></i> (11) 98765-4321</p>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Trashflow. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Inicialização do Swiper
+        const ideasSwiper = new Swiper('.ideas-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
                 },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
+                1024: {
+                    slidesPerView: 3,
+                }
+            },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+        });
+
+        // Navegação do menu
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
             });
-        </script>
+        }
+
+        // Navegação do dropdown
+        document.getElementById("options").addEventListener("change", function () {
+            const valor = this.value;
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            }
+        });
+    </script>
 </body>
 
 </html>

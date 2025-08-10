@@ -25,19 +25,36 @@ const upload = multer({ storage: storage });
 
 class controlador {
   async Inicio(req, res) {
-    res.sendFile(path.resolve(__dirname, "../views/home.html"));
+    res.sendFile(path.resolve(__dirname, "../views/home2.html"));
   }
-
+  async Contato(req, res) {
+    res.sendFile(path.resolve(__dirname, "../views/contato.html"));
+  }
+  async Sobre(req, res) {
+    res.sendFile(path.resolve(__dirname, "../views/somos.html"));
+  }
   async Login(req, res) {
     res.sendFile(path.resolve(__dirname, "../views/login.html"));
+  }
+
+  async Cadastro(req, res) {
+    res.sendFile(path.resolve(__dirname, "../views/cadastro.html"));
   }
 
   async Empresa(req, res) {
     res.sendFile(path.resolve(__dirname, "../views/cadastroempresa.html"));
   }
 
+  async EmpresaForm(req, res) {
+    res.sendFile(path.resolve(__dirname, "../views/cadastroempresaform.html"));
+  }
+
   async Ideia(req, res) {
     res.sendFile(path.resolve(__dirname, "../views/cadastroideia.html"));
+  }
+
+  async IdeiaForm(req, res) {
+    res.sendFile(path.resolve(__dirname, "../views/cadastroideiaform.html"));
   }
 
   //// aqui pra baixo é as para da logica
@@ -172,7 +189,7 @@ class controlador {
 
       let imgPath = null;
       if (req.file) {
-        imgPath = "imagens/" + req.file.filename;
+        imgPath = "/imagens/" + req.file.filename;
       }
 
       const query = `
@@ -213,43 +230,43 @@ class controlador {
       const { id: usuarioCod } = JSON.parse(cookie);
       if (!usuarioCod) return res.redirect("/login");
 
-      // 🔍 Obter latitude e longitude usando OpenStreetMap Nominatim (GRATUITO)
-      const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-        endereco
-      )}`;
+      // Converter array de materiais para string separada por vírgula
+      const materiaisFormatados = Array.isArray(material)
+        ? material.join(", ")
+        : material;
 
-      // Adiciona delay para respeitar os limites da API (1 requisição/segundo)
+      // Geocodificação via Nominatim
+      const geocodeUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco)}`;
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const response = await axios.get(geocodeUrl, {
         headers: {
-          "User-Agent": "Trash flow (ofcsmurilo@email.com)", // Nominatim exige identificação
+          "User-Agent": "Trash flow (ofcsmurilo@email.com)",
         },
       });
 
       const geoData = response.data;
-
       if (!geoData || geoData.length === 0) {
         console.error("Endereço não encontrado:", endereco);
-        return res.status(400).json({ error: "Endereço não encontrado." });
+        return res.status(400).send("Endereço não encontrado.");
       }
 
       const latitude = geoData[0].lat;
       const longitude = geoData[0].lon;
 
-      // 💾 Salva no banco
       const query = `
-        INSERT INTO empresa (
-          nome, cnpj, material, endereco, telefone,
-          horario_funcionamento, usuario_cod, latitude, longitude
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-      `;
+      INSERT INTO empresa (
+        nome, cnpj, material, endereco, telefone,
+        horario_funcionamento, usuario_cod, latitude, longitude
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
       const values = [
         nome,
         cnpj,
-        material,
+        materiaisFormatados,
         endereco,
         telefone,
         horario_funcionamento,
@@ -261,19 +278,43 @@ class controlador {
       db.query(query, values, (error, result) => {
         if (error) {
           console.error("Erro ao cadastrar empresa:", error);
-          return res.status(500).json({ error: "Erro ao cadastrar empresa" });
+          return res.status(500).send("Erro ao cadastrar empresa");
         }
         return res.redirect("/");
       });
     } catch (error) {
       console.error("Erro interno ao cadastrar empresa:", error);
-      return res.status(500).json({ error: "Erro interno no servidor" });
+      return res.status(500).send("Erro interno no servidor");
     }
   }
   async Deslogar(req, res) {
     res.clearCookie("permissao");
     console.log("Usuário deslogado com sucesso.");
     res.redirect("/login");
+  }
+
+
+  async GetEmpresas(req, res) {
+    const query = "SELECT * FROM empresa";
+    db.query(query, (error, results) => {
+      if (error) {
+        console.error("Erro ao buscar empresas:", error);
+        return res.status(500).json({ error: "Erro ao buscar empresas" });
+      }
+      return res.json(results);
+    });
+
+  }
+
+  async GetIdeias(req, res) {
+    const query = "SELECT * FROM ideias";
+    db.query(query, (error, results) => {
+      if (error) {
+        console.error("Erro ao buscar ideias:", error);
+        return res.status(500).json({ error: "Erro ao buscar ideias" });
+      }
+      return res.json(results);
+    });
   }
 }
 

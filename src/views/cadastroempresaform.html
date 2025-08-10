@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Empresa - Trash-Flow</title>
+    <link rel="stylesheet" href="public/css/formempresa.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="./public/TrashflowLogo 2.png" alt="TrashFlow Logo" />
+        </div>
+        <div class="navbar">
+            <ul>
+                <li>Quem somos</li>
+                <li>Ideias de Reciclagem</li>
+                <li>Empresas cadastradas</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+        <div class="btn">
+            <select id="options" name="options">
+                <option value="login">Entrar</option>
+                <option value="cadastro">Cadastrar</option>
+                <option value="logout">Deslogar</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+        <form class="form-empresa" action="/cadastroempresa" method="POST">
+            <h2>Cadastro de Empresa</h2>
+
+            <div class="form-group">
+                <label for="nome">Nome da Empresa *</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cnpj">CNPJ *</label>
+                <input type="text" id="cnpj" name="cnpj" required>
+            </div>
+
+            <div class="form-group">
+                <label>Materiais Recolhidos *</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="material[]" value="Plástico"> Plástico</label>
+                    <label><input type="checkbox" name="material[]" value="Papel"> Papel</label>
+                    <label><input type="checkbox" name="material[]" value="Vidro"> Vidro</label>
+                    <label><input type="checkbox" name="material[]" value="Metal"> Metal</label>
+                    <label><input type="checkbox" name="material[]" value="Orgânico"> Orgânico</label>
+                    <label><input type="checkbox" name="material[]" value="Eletrônicos"> Eletrônicos</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="endereco">Endereço *</label>
+                <input type="text" id="endereco" name="endereco" required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" name="telefone">
+            </div>
+
+            <div class="form-group">
+                <label for="horario">Horário de Funcionamento</label>
+                <input type="text" id="horario" name="horario_funcionamento">
+            </div>
+
+            <button type="submit">Cadastrar Empresa</button>
+        </form>
+    </main>
+
+    <script>
+        const listItems = document.getElementsByTagName('li');
+
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+
+                console.log(text);
+
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
+        }
+
+        document.getElementById("options").addEventListener("change", function () {
+            const valor = this.value;
+
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            }
+        });
+    </script>
+</body>
+
+</html>

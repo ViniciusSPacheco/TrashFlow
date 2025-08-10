@@ -2,12 +2,174 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Home - TrashFlow</title>
+    <link rel="stylesheet" href="public/css/cadastroempresa.css" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        .mapa {}
+    </style>
 </head>
 
 <body>
-    <h1>Pagina cadastro da empresa!</h1>
+    <header>
+        <div class="logo">
+            <img src="./public/TrashflowLogo 2.png" alt="logo" />
+        </div>
+        <div class="navbar">
+            <ul>
+                <li>Quem somos</li>
+                <li>Ideias de Reciclagem</li>
+                <li>Empresas cadastradas</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+        <div class="btn">
+            <select id="options" name="options">
+                <option value="login">Entrar</option>
+                <option value="cadastro">Cadastrar</option>
+                <option value="logout">Deslogar</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Localização de empresas</h1>
+        <div id="empresas-container"></div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="./public/TrashflowLogo 2.png" alt="Trashflow Logo" width="100">
+                <p>Transformando resíduos em oportunidades desde 2020.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#">Quem somos</a></li>
+                    <li><a href="#">Ideias de Reciclagem</a></li>
+                    <li><a href="#">Empresas cadastradas</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p>contato@trashflow.com.br</p>
+                <p>(11) 98765-4321</p>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
+                            width="24"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Trashflow. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Script para consumir API e montar os cards + mapas -->
+    <script>
+
+        const listItems = document.getElementsByTagName('li');
+
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+
+                console.log(text);
+
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
+        }
+
+        document.getElementById("options").addEventListener("change", function () {
+            const valor = this.value;
+
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            }
+        });
+        async function carregarEmpresas() {
+            try {
+                const response = await fetch("http://localhost:3030/dataempresa");
+                const empresas = await response.json();
+
+                const container = document.getElementById("empresas-container");
+
+                empresas.forEach((empresa, index) => {
+                    const div = document.createElement("div");
+                    div.classList.add("main");
+
+                    div.innerHTML = `
+            <div class="empresa">
+              <h2>${empresa.nome}</h2>
+              <div class="card">
+                <ul class="lista">
+                  <li>
+                    <img src="./public/simbolo-de-reciclagem 1.png" alt=""> Materiais aceitos: ${empresa.material}
+                  </li>
+                  <li>
+                    <img src="./public/mapas-e-bandeiras 1.png" alt=""> ${empresa.endereco}
+                  </li>
+                  <li>
+                    <img src="./public/telefone 1.png" alt=""> ${empresa.telefone || "Não informado"}
+                  </li>
+                  <li>
+                    <img src="./public/e-mail 1.png" alt=""> E-mail não disponível
+                  </li>
+                  <li>
+                    <img src="./public/simbolo-de-ferramentas-de-organizacao-e-administracao-de-horario-de-calendario-e-relogio 1.png"
+                        alt=""> Horário de funcionamento: ${empresa.horario_funcionamento || "Não informado"}
+                  </li>
+                </ul>
+                <div class="mapa" id="map-${index}"></div>
+              </div>
+            </div>
+          `;
+
+                    container.appendChild(div);
+
+                    // Inicializar mapa Leaflet
+                    const map = L.map(`map-${index}`).setView([empresa.latitude, empresa.longitude], 16);
+
+                    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                        attribution: '© OpenStreetMap contributors',
+                    }).addTo(map);
+
+                    L.marker([empresa.latitude, empresa.longitude])
+                        .addTo(map)
+                        .bindPopup(`<strong>${empresa.nome}</strong>`)
+                        .openPopup();
+                });
+            } catch (error) {
+                console.error("Erro ao carregar empresas:", error);
+            }
+        }
+
+        carregarEmpresas();
+    </script>
 </body>
 
 </html>

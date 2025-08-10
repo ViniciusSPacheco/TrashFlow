@@ -3,11 +3,230 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Home - TrashFlow</title>
+    <title>Ideias de Reciclagem - TrashFlow</title>
+    <link rel="stylesheet" href="public/css/cadastroideia.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <h1>Pagina cadastro de ideias!</h1>
+    <header>
+        <div class="logo">
+            <img src="./public/TrashflowLogo 2.png" alt="Logo TrashFlow">
+        </div>
+        <div class="navbar">
+            <ul>
+                <li>Quem somos</li>
+                <li>Ideias de Reciclagem</li>
+                <li>Empresas cadastradas</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+
+        <div class="btn">
+            <select id="options" name="options">
+                <option value="login">Entrar</option>
+                <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
+                <option value="logout">Deslogar</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="conteudos">
+            <div class="header-section">
+                <h1>Ideias para você reutilizar seu material</h1>
+                <button class="add-idea-btn">
+                    Quero adicionar uma ideia <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <div class="cards-container" id="cards-container">
+                <!-- Cards serão inseridos dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal para o passo a passo -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Título da Ideia</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="steps-container" id="steps-container">
+                    <!-- Passos serão inseridos dinamicamente -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="./public/TrashflowLogo 2.png" alt="Trashflow Logo" width="100">
+                <p>Transformando resíduos em oportunidades desde 2020.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#">Quem somos</a></li>
+                    <li><a href="#">Ideias de Reciclagem</a></li>
+                    <li><a href="#">Empresas cadastradas</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p>contato@trashflow.com.br</p>
+                <p>(11) 98765-4321</p>
+                <div class="social-icons">
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"
+                            width="24"></a>
+                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
+                            width="24"></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Trashflow. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        // Navegação do menu
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
+        }
+
+        // Navegação do dropdown
+        document.getElementById("options").addEventListener("change", function () {
+            const valor = this.value;
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            }
+        });
+
+        // Modal functions
+        const modal = document.getElementById('modal-overlay');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const closeBtn = document.querySelector('.close-btn');
+
+        function openModal(title, steps) {
+            document.getElementById('modal-title').textContent = title;
+
+            const stepsContainer = document.getElementById('steps-container');
+            stepsContainer.innerHTML = '';
+
+            // Divide os passos por quebras de linha
+            const stepsArray = steps.split('\n').filter(step => step.trim() !== '');
+
+            stepsArray.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'step';
+                stepElement.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <div class="step-content">${step}</div>
+                `;
+                stepsContainer.appendChild(stepElement);
+            });
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        closeModalBtn.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Carrega os dados da API
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost:3030/dataideia')
+                .then(response => response.json())
+                .then(data => {
+                    const cardsContainer = document.getElementById('cards-container');
+
+                    data.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+
+                        card.innerHTML = `
+                            <div class="main">
+                                <div class="esquerda">
+                                    <h2>${item.titulo}</h2>
+                                    <p>${item.descricao}</p>
+                                    <button class="btnz">Passo a passo <i class="fas fa-arrow-right"></i></button>
+                                </div>
+                                <div class="img">
+                                    <img src="${item.img}" alt="${item.titulo}" loading="lazy">
+                                </div>
+                            </div>
+                        `;
+
+                        cardsContainer.appendChild(card);
+
+                        // Adiciona evento de clique ao botão "Passo a passo"
+                        const btn = card.querySelector('.btnz');
+                        btn.addEventListener('click', () => {
+                            openModal(item.titulo, item.passo);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar dados da API:', error);
+                    // Exibe mensagem de erro ou cards padrão
+                    const cardsContainer = document.getElementById('cards-container');
+                    cardsContainer.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p>Não foi possível carregar as ideias no momento. Por favor, tente novamente mais tarde.</p>
+                        </div>
+                    `;
+                });
+
+            // Botão para adicionar nova ideia
+            const addButton = document.querySelector('.add-idea-btn');
+            addButton.addEventListener('click', () => {
+                // Redireciona para a página de cadastro ou abre um formulário
+                window.location.href = "/cadastrar-ideia";
+            });
+        });
+    </script>
 </body>
 
 </html>
