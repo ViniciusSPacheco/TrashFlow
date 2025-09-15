@@ -3,6 +3,7 @@ const db = require("../db/db");
 const multer = require("multer");
 const fs = require("fs");
 const axios = require("axios");
+const userService = require("../service/userService");
 
 // Cria a pasta imagens se não existir
 const dir = path.resolve(__dirname, "../imagens");
@@ -20,8 +21,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
-// ...existing code...
 
 class controlador {
   async Inicio(req, res) {
@@ -61,37 +60,22 @@ class controlador {
 
   async Logar(req, res) {
     const { email, senha } = req.body;
-    const query = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
-    db.query(query, [email, senha], (error, results) => {
-      if (error) {
-        console.error("Erro ao fazer login:", error);
-        return res.status(500).json({ error: "Erro ao fazer login" });
-      }
-
-      if (results.length > 0) {
-        const permissao = results[0].permissao; // ex: "empresa"
-        const id = results[0].cod; // ex: 2
-
-        // Salva objeto JSON no cookie
-        const dados = { tipo: permissao, id: id };
-
-        res.cookie("permissao", JSON.stringify(dados), {
-          httpOnly: false,
-          maxAge: 3600000,
-        });
-
-        console.log("Login bem-sucedido com permissão:", dados.tipo);
-
-        if (permissao === "empresa") {
+    try {
+      const user = await userService.findUserByEmailAndPassword(email, senha);
+      if (user) {
+        req.session.user = { tipo: user.permissao, id: user.cod };
+        if (user.permissao === "empresa") {
           return res.redirect("/cadastroempresa");
         } else {
           return res.redirect("/");
         }
       } else {
-        console.log("Credenciais inválidas");
         return res.status(401).json({ error: "Credenciais inválidas" });
       }
-    });
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      return res.status(500).json({ error: "Erro ao fazer login" });
+    }
   }
 
   async AtualizarUsuario(req, res) {
@@ -154,22 +138,11 @@ class controlador {
   async Cadastrar(req, res) {
     try {
       const { nome, email, senha, permissao } = req.body;
-      const query =
-        "INSERT INTO usuario (nome, email, senha, permissao) VALUES (?, ?, ?, ?)";
-      const values = [nome, email, senha, permissao];
-
-      db.query(query, values, (error, result) => {
-        if (error) {
-          console.error("Erro ao cadastrar:", error);
-          return res.status(500).json({ error: "Erro ao cadastrar usuário" });
-        } else {
-          console.log("Cadastro realizado com sucesso:", result);
-          res.redirect("/login");
-        }
-      });
+      await userService.createUser({ nome, email, senha, permissao });
+      res.redirect("/login");
     } catch (error) {
       console.error("Erro ao cadastrar:", error);
-      return res.status(500).json({ error: "Erro interno no servidor" });
+      return res.status(500).json({ error: "Erro ao cadastrar usuário" });
     }
   }
 
@@ -293,7 +266,6 @@ class controlador {
     res.redirect("/login");
   }
 
-
   async GetEmpresas(req, res) {
     const query = "SELECT * FROM empresa";
     db.query(query, (error, results) => {
@@ -303,7 +275,6 @@ class controlador {
       }
       return res.json(results);
     });
-
   }
 
   async GetIdeias(req, res) {

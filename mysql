@@ -15,7 +15,7 @@ CREATE TABLE ideias(
     img VARCHAR(255),
     usuario_cod INT,
     FOREIGN KEY (usuario_cod) REFERENCES usuario(cod) ON DELETE CASCADE
-)
+);
 
 
 CREATE TABLE empresa(
