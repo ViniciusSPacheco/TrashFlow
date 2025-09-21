@@ -31,6 +31,7 @@
                     <option value="login">Entrar</option>
                     <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
                     <option value="logout">Deslogar</option>
+                    <option value="perfil">Meu Perfil</option>
                 </select>
             </div>
         </header>
@@ -200,6 +201,9 @@
     </div>
 
     <script>
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        })
         // Navegação do menu
         const listItems = document.getElementsByTagName('li');
         for (let i = 0; i < listItems.length; i++) {
@@ -218,14 +222,27 @@
         }
 
         // Navegação do dropdown
-        document.getElementById("options").addEventListener("change", function () {
+        document.getElementById("options").addEventListener("change", async function () {
             const valor = this.value;
+
             if (valor === "login") {
                 window.location.href = "/login";
             } else if (valor === "cadastro") {
                 window.location.href = "/cadastrar";
             } else if (valor === "logout") {
                 window.location.href = "/logout";
+            } else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) {
+                        window.location.href = "/perfil"; // ou /usuario, depende da sua rota
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
             }
         });
 

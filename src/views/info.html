@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área da Empresa | Trashflow</title>
+    <link rel="stylesheet" href="./public/css/empresa.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="home" class="container">
+        <header>
+            <div class="logo">
+                <img src="./public/TrashflowLogo 2.png" alt="Trashflow Logo">
+            </div>
+            <div class="navbar">
+                <ul>
+                    <li>Quem somos</li>
+                    <li>Ideias de Reciclagem</li>
+                    <li>Empresas cadastradas</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+
+            <div class="btn">
+                <select id="options" name="options">
+                    <option value="login">Entrar</option>
+                    <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
+                    <option value="logout">Deslogar</option>
+                    <option value="perfil">Meu Perfil</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Área Exclusiva para Empresas</h1>
+                    <p>Faça parte da rede de coleta sustentável e aumente sua visibilidade enquanto contribui para um
+                        planeta mais limpo.</p>
+                    <div class="hero-buttons">
+                        <button class="cta-button primary"
+                            onclick="window.location.href='/cadastroempresaform'">Cadastrar
+                            Local de Coleta</button>
+                        <button class="cta-button secondary" onclick="window.location.href='/cadastroempresa'">Ver
+                            Empresas Cadastradas</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        alt="Empresas sustentáveis">
+                </div>
+            </section>
+
+            <!-- Como Funciona -->
+            <section class="how-it-works">
+                <h2>Como cadastrar seu ponto de coleta</h2>
+                <p class="section-subtitle">Siga estes passos simples para integrar sua empresa à nossa rede sustentável
+                </p>
+
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Faça login na plataforma</h3>
+                            <p>Acesse sua conta empresa ou crie uma nova se você ainda não tem cadastro.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Acesse a área de cadastro</h3>
+                            <p>No menu principal, clique em "Cadastrar Local" para iniciar o processo.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Preencha as informações</h3>
+                            <p>Informe os detalhes do local: endereço, tipos de materiais aceitos, horários de
+                                funcionamento e outras informações relevantes.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Envie para aprovação</h3>
+                            <p>Após preencher todas as informações, envie o cadastro para nossa equipe revisar e ativar
+                                seu ponto de coleta.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Benefícios -->
+            <section class="benefits">
+                <h2>Vantagens de ser uma empresa parceira</h2>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Maior Visibilidade</h3>
+                        <p>Sua empresa será encontrada por milhares de usuários que buscam pontos de coleta.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Marketing Sustentável</h3>
+                        <p>Fortaleça sua imagem como empresa comprometida com o meio ambiente.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3>Novas Parcerias</h3>
+                        <p>Conecte-se com outras empresas e organizações que compartilham seus valores.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Impacto Mensurável</h3>
+                        <p>Acompanhe o volume de resíduos coletados e seu impacto ambiental positivo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="./public/TrashflowLogo 2.png" alt="Trashflow Logo" width="100">
+                    <p>Transformando resíduos em oportunidades desde 2020.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#">Quem somos</a></li>
+                        <li><a href="#">Ideias de Reciclagem</a></li>
+                        <li><a href="#">Empresas cadastradas</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>contato@trashflow.com.br</p>
+                    <p>(11) 98765-4321</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Trashflow. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Navegação do menu
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
+        }
+
+        // Logo clicável
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        });
+
+        // Dropdown login/cadastro/logout/perfil
+        document.getElementById("options").addEventListener("change", async function () {
+            const valor = this.value;
+
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            } else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) {
+                        window.location.href = "/perfil";
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

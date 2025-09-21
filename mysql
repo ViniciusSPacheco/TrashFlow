@@ -1,13 +1,14 @@
+
 CREATE TABLE usuario (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(222),
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    permissao enum('adm','empresa', 'usuario') default 'usuario'
+    permissao ENUM('adm','empresa','usuario') DEFAULT 'usuario'
 );
 
 
-CREATE TABLE ideias(
+CREATE TABLE ideias (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT NOT NULL,
@@ -15,17 +16,19 @@ CREATE TABLE ideias(
     img VARCHAR(255),
     usuario_cod INT,
     FOREIGN KEY (usuario_cod) REFERENCES usuario(cod) ON DELETE CASCADE
-)
+);
 
 
-CREATE TABLE empresa(
+CREATE TABLE empresa (
     cod INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
-    cnpj VARCHAR(14) NOT NULL UNIQUE,
+    cnpj VARCHAR(50) NOT NULL UNIQUE,
     material VARCHAR(255) NOT NULL,
     endereco VARCHAR(255) NOT NULL,
     telefone VARCHAR(15),
     horario_funcionamento VARCHAR(255),
+    latitude VARCHAR(100),  
+    longitude VARCHAR(100), 
     usuario_cod INT,
     FOREIGN KEY (usuario_cod) REFERENCES usuario(cod) ON DELETE CASCADE
 );

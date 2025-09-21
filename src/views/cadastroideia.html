@@ -3,11 +3,781 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ideias de Reciclagem - TrashFlow</title>
     <link rel="stylesheet" href="public/css/cadastroideia.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Adicionando Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        /* HEADER ORIGINAL (mantido intacto) */
+
+
+        /* BANNER COM SWIPER - DESIGN MODERNO */
+        .swiper-banner {
+            width: 100%;
+            height: 550px;
+            margin-top: 80px;
+        }
+
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 60px;
+            color: white;
+            background: linear-gradient(transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: 10;
+        }
+
+        .slide-content h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        .slide-content p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .slide-btn {
+            background-color: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(74, 156, 13, 0.3);
+        }
+
+        .slide-btn:hover {
+            background-color: #3e850b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 156, 13, 0.4);
+        }
+
+        /* Customização dos controles do Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white !important;
+            background: rgba(255, 255, 255, 0.2);
+            width: 60px !important;
+            height: 60px !important;
+            border-radius: 50%;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 1.5rem !important;
+            font-weight: bold;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5) !important;
+            opacity: 1 !important;
+            width: 12px !important;
+            height: 12px !important;
+            margin: 0 8px !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #4a9c0d !important;
+            width: 30px !important;
+            border-radius: 10px !important;
+        }
+
+        /* SEÇÃO DE BUSCA MODERNA */
+        .search-hero {
+            background: linear-gradient(135deg, rgba(98, 173, 18, 0.1) 0%, rgb(94, 93, 93) 100%);
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            margin-top: 30px;
+        }
+
+        .search-hero h1 {
+            font-size: 2.8rem;
+            color: #2e5b0b;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .search-hero p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .search-container-modern {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 15px 40px rgba(74, 156, 13, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .search-input-modern {
+            flex: 1;
+            padding: 20px 25px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+            color: #333;
+        }
+
+        .search-input-modern::placeholder {
+            color: #999;
+        }
+
+        .search-btn {
+            background: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .search-btn:hover {
+            background: #3e850b;
+        }
+
+        .search-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .filter-chip {
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-chip:hover,
+        .filter-chip.active {
+            background: #4a9c0d;
+            color: white;
+            border-color: #4a9c0d;
+        }
+
+        /* Conteúdo principal (mantido do original com pequenos ajustes) */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .conteudos {
+            margin-bottom: 60px;
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-section h1 {
+            font-size: 2.2rem;
+            color: #2e5b0b;
+            margin: 0;
+        }
+
+        .add-idea-btn {
+            background-color: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(74, 156, 13, 0.3);
+        }
+
+        .add-idea-btn:hover {
+            background-color: #3e850b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 156, 13, 0.4);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #2e5b0b;
+            margin-bottom: 15px;
+        }
+
+        .card-desc {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .material-tag {
+            background-color: #f0f8ef;
+            color: #4a9c0d;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .btnz {
+            background-color: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(74, 156, 13, 0.3);
+        }
+
+        .btnz:hover {
+            background-color: #3e850b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(74, 156, 13, 0.4);
+        }
+
+        /* Seção de estatísticas */
+        .inspiration-section {
+            background-color: #f5f9f2;
+            padding: 60px 20px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .inspiration-title {
+            font-size: 2rem;
+            color: #2e5b0b;
+            margin-bottom: 40px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4a9c0d;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Estados de carregamento e vazio */
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4a9c0d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .no-results p {
+            font-size: 1.2rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .no-results small {
+            color: #999;
+        }
+
+        /* Modal (mantido do original) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 10;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+            color: #2e5b0b;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #777;
+            transition: color 0.3s ease;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #d32f2f;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background-color: #f5f9f2;
+            border-radius: 10px;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: #4a9c0d;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .close-btn {
+            background-color: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background-color: #3e850b;
+        }
+
+        /* Footer (mantido do original) */
+        footer {
+            background-color: #2e5b0b;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo img {
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .slide-content {
+                padding: 40px;
+            }
+
+            .slide-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .slide-content p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .swiper-banner {
+                height: 450px;
+            }
+
+            .slide-content {
+                padding: 30px 20px;
+            }
+
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .slide-content p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .slide-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .search-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .search-hero p {
+                font-size: 1rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+
+            .search-input-modern {
+                padding: 15px 20px;
+            }
+
+            .search-btn {
+                padding: 15px;
+                justify-content: center;
+                border-radius: 0 0 15px 15px;
+            }
+
+            .header-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                width: 50px !important;
+                height: 50px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .swiper-banner {
+                height: 400px;
+                margin-top: 70px;
+                margin-bottom: 30px;
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            .slide-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .slide-content p {
+                display: none;
+            }
+
+            .search-hero {
+                padding: 40px 15px;
+            }
+
+            .search-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .filter-chip {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+
+            .header-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -27,13 +797,118 @@
         <div class="btn">
             <select id="options" name="options">
                 <option value="login">Entrar</option>
-                <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
+                <option value="cadastro">Cadastrar</option>
                 <option value="logout">Deslogar</option>
+                <option value="perfil">Perfil</option>
             </select>
         </div>
     </header>
 
+    <!-- Banner com Swiper -->
+    <div class="swiper swiper-banner">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                    alt="Reciclagem criativa">
+                <div class="slide-content">
+                    <h2>Transforme seu lixo em luxo</h2>
+                    <p>Descubra centenas de ideias criativas para reutilizar materiais e reduzir o desperdício.</p>
+                    <button class="slide-btn">Explorar ideias <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                    alt="Reciclagem de plástico">
+                <div class="slide-content">
+                    <h2>Ideias para reciclar plástico</h2>
+                    <p>Aprenda a transformar garrafas plásticas em objetos úteis e decorativos para sua casa.</p>
+                    <button class="slide-btn">Ver ideias <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://culturanf.com.br/wp-content/uploads/2023/12/fotografia-tecnicas-arte-papel-crepe.webp"
+                    alt="Reciclagem de papel">
+                <div class="slide-content">
+                    <h2>Arte com papel reciclado</h2>
+                    <p>Descubra como transformar jornais e revistas antigas em belas peças de arte.</p>
+                    <button class="slide-btn">Inspirar-me <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                    alt="Reciclagem de eletrônicos">
+                <div class="slide-content">
+                    <h2>Reutilize seus eletrônicos</h2>
+                    <p>Aprenda a dar nova vida a dispositivos eletrônicos antigos e reduzir o lixo tecnológico.</p>
+                    <button class="slide-btn">Ver soluções <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles de navegação -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
     <main class="container">
+        <!-- Seção de busca moderna -->
+        <div class="search-hero">
+            <h1>Encontre ideias sustentáveis</h1>
+            <p>Busque por materiais específicos ou explore nossas categorias para descobrir como transformar resíduos em
+                recursos valiosos.</p>
+
+            <div class="search-container-modern">
+                <div class="search-box">
+                    <input type="text" class="search-input-modern"
+                        placeholder="Digite o material que deseja reciclar..." id="search-input">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i> Buscar
+                    </button>
+                </div>
+
+                <div class="search-filters">
+                    <div class="filter-chip active" data-category="all">
+                        <i class="fas fa-layer-group"></i> Todas
+                    </div>
+                    <div class="filter-chip" data-category="Plástico">
+                        <i class="fas fa-wine-bottle"></i> Plástico
+                    </div>
+                    <div class="filter-chip" data-category="Papel">
+                        <i class="fas fa-file-alt"></i> Papel
+                    </div>
+                    <div class="filter-chip" data-category="Vidro">
+                        <i class="fas fa-glass-martini-alt"></i> Vidro
+                    </div>
+                    <div class="filter-chip" data-category="Metal">
+                        <i class="fas fa-wrench"></i> Metal
+                    </div>
+                    <div class="filter-chip" data-category="Eletrônicos">
+                        <i class="fas fa-laptop"></i> Eletrônicos
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de estatísticas inspiradoras -->
+        <div class="inspiration-section">
+            <h2 class="inspiration-title">Seu impacto na reciclagem</h2>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" id="ideas-count">0</div>
+                    <div class="stat-label">Ideias disponíveis</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Redução de resíduos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Pessoas impactadas</div>
+                </div>
+            </div>
+        </div>
+
         <div class="conteudos">
             <div class="header-section">
                 <h1>Ideias para você reutilizar seu material</h1>
@@ -42,8 +917,10 @@
                 </button>
             </div>
 
-            <div class="cards-container" id="cards-container">
-                <!-- Cards serão inseridos dinamicamente via JavaScript -->
+            <div class="cards-grid" id="cards-container">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
             </div>
         </div>
     </main>
@@ -66,8 +943,6 @@
         </div>
     </div>
 
-
-
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
@@ -88,14 +963,10 @@
                 <p>contato@trashflow.com.br</p>
                 <p>(11) 98765-4321</p>
                 <div class="social-icons">
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook"
-                            width="24"></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"
-                            width="24"></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"
-                            width="24"></a>
-                    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"
-                            width="24"></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
         </div>
@@ -103,113 +974,205 @@
             <p>&copy; 2023 Trashflow. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <!-- Scripts do Swiper -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Navegação do menu
-        const listItems = document.getElementsByTagName('li');
-        for (let i = 0; i < listItems.length; i++) {
-            listItems[i].addEventListener('click', function (event) {
-                const text = event.target.textContent;
-                if (text === "Quem somos") {
-                    window.location.href = "/sobre";
-                } else if (text === "Ideias de Reciclagem") {
-                    window.location.href = "/cadastroideia";
-                } else if (text === "Empresas cadastradas") {
-                    window.location.href = "/cadastroempresa";
-                } else if (text === "Contato") {
-                    window.location.href = "/contato";
+        // Inicialização do Swiper
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.swiper-banner', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+            });
+
+            // Navegação do menu
+            const listItems = document.getElementsByTagName('li');
+            for (let i = 0; i < listItems.length; i++) {
+                listItems[i].addEventListener('click', function (event) {
+                    const text = event.target.textContent;
+                    if (text === "Quem somos") {
+                        window.location.href = "/sobre";
+                    } else if (text === "Ideias de Reciclagem") {
+                        window.location.href = "/cadastroideia";
+                    } else if (text === "Empresas cadastradas") {
+                        window.location.href = "/cadastroempresa";
+                    } else if (text === "Contato") {
+                        window.location.href = "/contato";
+                    }
+                });
+            }
+
+            // Navegação do dropdown
+            document.getElementById("options").addEventListener("change", function () {
+                const valor = this.value;
+                if (valor === "login") {
+                    window.location.href = "/login";
+                } else if (valor === "cadastro") {
+                    window.location.href = "/cadastrar";
+                } else if (valor === "logout") {
+                    window.location.href = "/logout";
+                } else if (valor === "perfil") {
+                    window.location.href = "/perfil";
                 }
             });
-        }
 
-        // Navegação do dropdown
-        document.getElementById("options").addEventListener("change", function () {
-            const valor = this.value;
-            if (valor === "login") {
-                window.location.href = "/login";
-            } else if (valor === "cadastro") {
-                window.location.href = "/cadastrar";
-            } else if (valor === "logout") {
-                window.location.href = "/logout";
+            // Modal functions
+            const modal = document.getElementById('modal-overlay');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const closeBtn = document.querySelector('.close-btn');
+
+            function openModal(title, steps) {
+                document.getElementById('modal-title').textContent = title;
+
+                const stepsContainer = document.getElementById('steps-container');
+                stepsContainer.innerHTML = '';
+
+                // Divide os passos por quebras de linha
+                const stepsArray = steps.split('\n').filter(step => step.trim() !== '');
+
+                stepsArray.forEach((step, index) => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'step';
+                    stepElement.innerHTML = `
+                        <div class="step-number">${index + 1}</div>
+                        <div class="step-content">${step}</div>
+                    `;
+                    stepsContainer.appendChild(stepElement);
+                });
+
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             }
-        });
 
-        // Modal functions
-        const modal = document.getElementById('modal-overlay');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const closeBtn = document.querySelector('.close-btn');
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
 
-        function openModal(title, steps) {
-            document.getElementById('modal-title').textContent = title;
-
-            const stepsContainer = document.getElementById('steps-container');
-            stepsContainer.innerHTML = '';
-
-            // Divide os passos por quebras de linha
-            const stepsArray = steps.split('\n').filter(step => step.trim() !== '');
-
-            stepsArray.forEach((step, index) => {
-                const stepElement = document.createElement('div');
-                stepElement.className = 'step';
-                stepElement.innerHTML = `
-                    <div class="step-number">${index + 1}</div>
-                    <div class="step-content">${step}</div>
-                `;
-                stepsContainer.appendChild(stepElement);
+            closeModalBtn.addEventListener('click', closeModal);
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
             });
 
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
+            document.querySelector('.logo').addEventListener('click', () => {
+                window.location.href = "/";
+            });
 
-        function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+            // Filtros e busca
+            const searchInput = document.getElementById('search-input');
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            let allIdeas = [];
+            let currentCategory = 'all';
+            let currentSearch = '';
 
-        closeModalBtn.addEventListener('click', closeModal);
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
+            // Função para filtrar as ideias
+            function filterIdeas() {
+                const cardsContainer = document.getElementById('cards-container');
+                const filteredIdeas = allIdeas.filter(idea => {
+                    const matchesCategory = currentCategory === 'all' ||
+                        (idea.material && idea.material.includes(currentCategory));
+
+                    const matchesSearch = currentSearch === '' ||
+                        idea.titulo.toLowerCase().includes(currentSearch) ||
+                        idea.descricao.toLowerCase().includes(currentSearch) ||
+                        (idea.material && idea.material.toLowerCase().includes(currentSearch));
+
+                    return matchesCategory && matchesSearch;
+                });
+
+                displayIdeas(filteredIdeas);
             }
-        });
 
-        // Carrega os dados da API
-        document.addEventListener('DOMContentLoaded', function () {
+            // Event listeners para filtros
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase();
+                filterIdeas();
+            });
+
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    currentCategory = button.dataset.category;
+                    filterIdeas();
+                });
+            });
+
+            // Função para exibir as ideias
+            function displayIdeas(ideas) {
+                const cardsContainer = document.getElementById('cards-container');
+
+                if (ideas.length === 0) {
+                    cardsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <p>Nenhuma ideia encontrada. Tente alterar os filtros de busca.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                cardsContainer.innerHTML = '';
+
+                ideas.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                        <div class="card-img">
+                            <img src="${item.img}" alt="${item.titulo}" loading="lazy">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">${item.titulo}</h3>
+                            <p class="card-desc">${item.descricao}</p>
+                            <div class="card-footer">
+                                <span class="material-tag">${item.material || 'Vários materiais'}</span>
+                                <button class="btnz">Ver passo a passo <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    `;
+
+                    cardsContainer.appendChild(card);
+
+                    // Adiciona evento de clique ao botão "Ver passo a passo"
+                    const btn = card.querySelector('.btnz');
+                    btn.addEventListener('click', () => {
+                        openModal(item.titulo, item.passo);
+                    });
+                });
+
+                // Atualiza o contador de ideias
+                document.getElementById('ideas-count').textContent = ideas.length;
+            }
+
+            // Carrega os dados da API
             fetch('http://localhost:3030/dataideia')
                 .then(response => response.json())
                 .then(data => {
-                    const cardsContainer = document.getElementById('cards-container');
-
-                    data.forEach(item => {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-
-                        card.innerHTML = `
-                            <div class="main">
-                                <div class="esquerda">
-                                    <h2>${item.titulo}</h2>
-                                    <p>${item.descricao}</p>
-                                    <button class="btnz">Passo a passo <i class="fas fa-arrow-right"></i></button>
-                                </div>
-                                <div class="img">
-                                    <img src="${item.img}" alt="${item.titulo}" loading="lazy">
-                                </div>
-                            </div>
-                        `;
-
-                        cardsContainer.appendChild(card);
-
-                        // Adiciona evento de clique ao botão "Passo a passo"
-                        const btn = card.querySelector('.btnz');
-                        btn.addEventListener('click', () => {
-                            openModal(item.titulo, item.passo);
-                        });
-                    });
+                    allIdeas = data;
+                    displayIdeas(allIdeas);
                 })
                 .catch(error => {
                     console.error('Erro ao carregar dados da API:', error);
-                    // Exibe mensagem de erro ou cards padrão
+                    // Exibe mensagem de erro
                     const cardsContainer = document.getElementById('cards-container');
                     cardsContainer.innerHTML = `
                         <div class="error-message">
@@ -219,11 +1182,25 @@
                     `;
                 });
 
+            function getCookie(nome) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${nome}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
             // Botão para adicionar nova ideia
             const addButton = document.querySelector('.add-idea-btn');
             addButton.addEventListener('click', () => {
-                // Redireciona para a página de cadastro ou abre um formulário
-                window.location.href = "/cadastrar-ideia";
+                const cookie = getCookie("permissao");
+
+                if (cookie) {
+                    // Tem cookie => usuário logado
+                    window.location.href = "/cadastroideiaform";
+                } else {
+                    // Não tem cookie => redireciona para login
+                    alert("Você precisa estar logado para adicionar uma ideia.");
+                    window.location.href = "/login";
+                }
             });
         });
     </script>

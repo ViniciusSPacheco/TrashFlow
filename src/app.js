@@ -34,6 +34,7 @@ function somenteEmpresa(req, res, next) {
 }
 
 app.get("/", (req, res) => Controller.Inicio(req, res));// funcionando
+app.get("/info", (req, res) => Controller.Info(req, res));// funcionando
 app.get("/login", (req, res) => Controller.Login(req, res));//funcionando
 app.get("/cadastrar", (req, res) => Controller.Cadastro(req, res)); // funcionando
 app.get("/cadastroempresa", (req, res) => Controller.Empresa(req, res));//funcionando
@@ -57,10 +58,23 @@ app.post("/atualizarusuario", (req, res) =>
   Controller.AtualizarUsuario(req, res)
 );
 
+app.get('/perfil', (req, res) => {
+  Controller.atualizar(req, res)
+})
+app.get("/obterusuario", (req, res) => Controller.ObterUsuario(req, res));
 
 app.get('/dataempresa', (req, res) => Controller.GetEmpresas(req, res));// funcionando
 
 app.get('/dataideia', (req, res) => Controller.GetIdeias(req, res));// funcionando
+// DELETE de registros
+app.get('/obterideias', (req, res) => Controller.ObterIdeiasUsuario(req, res));
+app.get('/obterempresas', (req, res) => Controller.ObterEmpresasUsuario(req, res));
+app.delete('/deletar/:tipo/:id', (req, res) => Controller.DeletarRegistro(req, res));
+app.get("/obterempresa", (req, res) => Controller.ObterEmpresa(req, res));
+
+// Rota para atualizar empresa (form)
+app.post("/atualizarempresa", somenteEmpresa, (req, res) => Controller.AtualizarEmpresa(req, res));
+app.post("/atualizarideia", (req, res) => Controller.AtualizarIdeia(req, res));
 app.listen(3030, (error) => {
   if (!error) {
     console.log("Servidor rodando nesta porta: http://localhost:3030/");

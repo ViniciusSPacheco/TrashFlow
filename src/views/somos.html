@@ -32,6 +32,7 @@
                     <option value="login">Entrar</option>
                     <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
                     <option value="logout">Deslogar</option>
+                    <option value="perfil">Meu Perfil</option>
                 </select>
             </div>
         </header>
@@ -218,6 +219,62 @@
             </div>
         </footer>
     </div>
+    <script>
+
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
+        }
+
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        })
+
+        const ctaButton = document.querySelector('.cta-button');
+        ctaButton.addEventListener('click', () => {
+            window.location.href = "/cadastroempresa";
+        });
+        // Dropdown login/cadastro/logout/perfil
+        document.getElementById("options").addEventListener("change", async function () {
+            const valor = this.value;
+
+            if (valor === "login") {
+                window.location.href = "/login";
+            } else if (valor === "cadastro") {
+                window.location.href = "/cadastrar";
+            } else if (valor === "logout") {
+                window.location.href = "/logout";
+            } else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) {
+                        window.location.href = "/perfil"; // ou /usuario, depende da sua rota
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
+            }
+        });
+
+        const primary = document.querySelector('.primary-cta');
+        primary.addEventListener('click', () => {
+            window.location.href = "/cadastrar";
+        }); 
+    </script>
 </body>
 
 </html>

@@ -31,13 +31,22 @@
                 <option value="login">Entrar</option>
                 <option value="cadastro">Cadastrar</option>
                 <option value="logout">Deslogar</option>
+                <option value="perfil">Meu Perfil</option>
             </select>
         </div>
     </header>
 
     <main class="container">
+        <button class="add-idea-btn" style="position: relative;
+    /* right: 0px; */
+    left: 900px;
+    top: 40px;">
+            Quero cadastrar empresa referência <i class="fas fa-plus"> </i>
+        </button>
         <h1>Localização de empresas</h1>
+
         <div id="empresas-container"></div>
+
     </main>
     <footer>
         <div class="footer-content">
@@ -99,8 +108,10 @@
                 }
             });
         }
-
-        document.getElementById("options").addEventListener("change", function () {
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        })
+        document.getElementById("options").addEventListener("change", async function () {
             const valor = this.value;
 
             if (valor === "login") {
@@ -109,8 +120,21 @@
                 window.location.href = "/cadastrar";
             } else if (valor === "logout") {
                 window.location.href = "/logout";
+            } else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) {
+                        window.location.href = "/perfil"; // ou /usuario, depende da sua rota
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
             }
         });
+
         async function carregarEmpresas() {
             try {
                 const response = await fetch("http://localhost:3030/dataempresa");
@@ -167,7 +191,27 @@
                 console.error("Erro ao carregar empresas:", error);
             }
         }
+        function getCookie(nome) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${nome}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
 
+        // Botão para adicionar nova ideia
+
+        const addButton = document.querySelector('.add-idea-btn');
+        addButton.addEventListener('click', () => {
+            const cookie = getCookie("permissao");
+
+            if (cookie) {
+                // Tem cookie => redireciona para adicionar ideia
+                window.location.href = "/cadastrar";
+            } else {
+                // Não tem cookie => redireciona para login
+
+                window.location.href = "/cadastrar";
+            }
+        });
         carregarEmpresas();
     </script>
 </body>

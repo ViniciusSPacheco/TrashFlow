@@ -34,6 +34,8 @@
                     <option value="login">Entrar</option>
                     <option value="cadastro"><a href="/cadastrar">Cadastrar</a></option>
                     <option value="logout">Deslogar</option>
+                    <option value="perfil">Meu perfil</option>
+
                 </select>
             </div>
         </header>
@@ -115,7 +117,7 @@
             <div class="swiper ideas-swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide idea-slide">
-                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 1">
+                        <img src="public/nick-fewings--2lJGRIY5P0-unsplash.jpg" alt="Ideia 1">
                         <div class="slide-content">
                             <h3>Móveis com pallets</h3>
                             <p>Crie sofás, mesas e prateleiras reaproveitando pallets de madeira.</p>
@@ -128,7 +130,7 @@
                     </div>
 
                     <div class="swiper-slide idea-slide">
-                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 2">
+                        <img src="public/nareeta-martin-FoG7PKNYjpM-unsplash.jpg" alt="Ideia 2">
                         <div class="slide-content">
                             <h3>Vasos com garrafas PET</h3>
                             <p>Transforme garrafas plásticas em lindos vasos para sua horta ou jardim.</p>
@@ -141,7 +143,7 @@
                     </div>
 
                     <div class="swiper-slide idea-slide">
-                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 3">
+                        <img src="public/pawel-czerwinski-RkIsyD_AVvc-unsplash.jpg" alt="Ideia 3">
                         <div class="slide-content">
                             <h3>Organizadores com caixas</h3>
                             <p>Caixas de leite e suco podem virar práticos organizadores para sua casa.</p>
@@ -154,7 +156,7 @@
                     </div>
 
                     <div class="swiper-slide idea-slide">
-                        <img src="public/markus-spiske-GnxktpZHjcM-unsplash.jpg" alt="Ideia 4">
+                        <img src="public/jon-moore-1PxGp8kkQyk-unsplash.jpg" alt="Ideia 4">
                         <div class="slide-content">
                             <h3>Arte com CDs antigos</h3>
                             <p>Crie mosaicos e decorações luminosas com CDs que não usa mais.</p>
@@ -284,7 +286,7 @@
             },
         });
 
-        // Navegação do menu
+        // Navegação dos itens do menu
         const listItems = document.getElementsByTagName('li');
         for (let i = 0; i < listItems.length; i++) {
             listItems[i].addEventListener('click', function (event) {
@@ -300,19 +302,52 @@
                 }
             });
         }
-
-        // Navegação do dropdown
-        document.getElementById("options").addEventListener("change", function () {
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        })
+        // Dropdown login/cadastro/logout/perfil
+        document.getElementById("options").addEventListener("change", async function () {
             const valor = this.value;
+
             if (valor === "login") {
                 window.location.href = "/login";
             } else if (valor === "cadastro") {
                 window.location.href = "/cadastrar";
             } else if (valor === "logout") {
                 window.location.href = "/logout";
+            } else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) {
+                        window.location.href = "/perfil"; // ou /usuario, depende da sua rota
+                    } else {
+                        window.location.href = "/login";
+                    }
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
             }
         });
+
+        // Botões da home - redirecionamento direto
+        document.querySelectorAll('.feature-button').forEach((btn, index) => {
+            if (index === 0) {
+                btn.addEventListener('click', () => window.location.href = '/cadastroempresa'); // ou a rota que você tiver
+            } else if (index === 1) {
+                btn.addEventListener('click', () => window.location.href = '/cadastroideia'); // ou /cadastroideia
+            }
+        });
+
+        // Botões dos slides (Ver tutorial) - você pode personalizar conforme seu backend
+        document.querySelectorAll('.idea-button').forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // Se tiver uma rota com ID, pode usar: `/ideias/${index + 1}`
+                window.location.href = `/ideias`; // genérico por enquanto
+            });
+        });
     </script>
+
 </body>
 
 </html>

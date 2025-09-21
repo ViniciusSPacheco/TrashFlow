@@ -2,18 +2,17 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TrashFlow - Atualizar Dados</title>
+    <meta charset="utf-8" />
+    <title>Meu Perfil | TrashFlow</title>
     <link rel="stylesheet" href="./public/css/usuario.css" />
-    <link rel="stylesheet" href="./style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <header>
-        <div class="logo">
-            <img src="./public/TrashflowLogo 2.png" alt="TrashFlow Logo" />
-        </div>
+        <div class="logo"><img src="./public/TrashflowLogo 2.png" alt="logo" /></div>
         <div class="navbar">
             <ul>
                 <li>Quem somos</li>
@@ -23,40 +22,323 @@
             </ul>
         </div>
         <div class="btn">
-            <select id="options" name="options">
+            <select id="options">
                 <option value="login">Entrar</option>
                 <option value="cadastro">Cadastrar</option>
                 <option value="logout">Deslogar</option>
+                <option value="perfil">Meu Perfil</option>
             </select>
         </div>
     </header>
 
     <main class="container">
+        <div class="profile-header">
+            <h1><i class="fas fa-user-circle"></i> Meu Perfil</h1>
+            <p>Gerencie suas informações e registros</p>
+        </div>
 
-        <div class="form-wrapper">
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="user-card">
+                    <div class="user-avatar"><i class="fas fa-user"></i></div>
+                    <div class="user-details">
+                        <h3>Suas Informações</h3>
+                        <p><strong>Nome:</strong> <span id="nome-atual">Carregando...</span></p>
+                        <p><strong>Email:</strong> <span id="email-atual">Carregando...</span></p>
+                    </div>
+                </div>
 
-            <!-- 🧩 Seção moderna de exibição dos dados do usuário -->
-            <div class="user-info">
-                <h2>Dados Atuais</h2>
-                <p><strong>Nome:</strong> <span>João da Silva</span></p>
-                <p><strong>Email:</strong> <span>joao.silva@email.com</span></p>
+                <div class="stats-card">
+                    <h3>Estatísticas</h3>
+                    <div class="stat-item"><i class="fas fa-lightbulb"></i><span id="ideias-count">0</span>
+                        <p>Ideias Cadastradas</p>
+                    </div>
+                    <div class="stat-item"><i class="fas fa-building"></i><span id="empresas-count">0</span>
+                        <p>Empresas Cadastradas</p>
+                    </div>
+                </div>
             </div>
 
-            <h1>Atualize suas informações</h1>
-            <form action="/atualizar" method="POST" class="update-form">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required />
+            <div class="profile-main">
+                <div class="form-section">
+                    <h2><i class="fas fa-edit"></i> Atualizar Informações Pessoais</h2>
+                    <form action="/atualizarusuario" method="POST" class="update-form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo" />
+                        </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required />
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="seu.email@exemplo.com" />
+                        </div>
 
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required />
+                        <div class="form-group">
+                            <label for="senha">Nova Senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Digite sua nova senha" />
+                            <small>Deixe em branco se não deseja alterar</small>
+                        </div>
 
-                <input type="submit" value="Atualizar" />
-            </form>
+                        <button type="submit" class="submit-btn"><i class="fas fa-sync-alt"></i> Atualizar
+                            Dados</button>
+                    </form>
+                </div>
+
+                <!-- somente empresas -->
+                <div class="form-section" id="empresa-section" style="display:none;">
+                    <h2><i class="fas fa-building"></i> Atualizar Dados da Empresa</h2>
+                    <form class="update-empresa-form" action="/atualizarempresa" method="POST">
+                        <div class="form-group">
+                            <label for="empresa-nome">Nome da Empresa *</label>
+                            <input type="text" id="empresa-nome" name="nome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa-cnpj">CNPJ *</label>
+                            <input type="text" id="empresa-cnpj" name="cnpj" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Materiais Recolhidos *</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-row">
+                                    <label><input type="checkbox" name="material" value="Plástico"> Plástico</label>
+                                    <label><input type="checkbox" name="material" value="Papel"> Papel</label>
+                                    <label><input type="checkbox" name="material" value="Vidro"> Vidro</label>
+                                </div>
+                                <div class="checkbox-row">
+                                    <label><input type="checkbox" name="material" value="Metal"> Metal</label>
+                                    <label><input type="checkbox" name="material" value="Orgânico"> Orgânico</label>
+                                    <label><input type="checkbox" name="material" value="Eletrônicos">
+                                        Eletrônicos</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa-endereco">Endereço *</label>
+                            <input type="text" id="empresa-endereco" name="endereco" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa-telefone">Telefone</label>
+                            <input type="text" id="empresa-telefone" name="telefone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="empresa-horario">Horário de Funcionamento</label>
+                            <input type="text" id="empresa-horario" name="horario_funcionamento"
+                                placeholder="Ex: Segunda a Sexta, 8h às 18h">
+                        </div>
+
+                        <button type="submit" class="submit-btn"><i class="fas fa-sync-alt"></i> Atualizar Dados da
+                            Empresa</button>
+                    </form>
+                </div>
+
+                <div class="registries-section">
+                    <h2><i class="fas fa-history"></i> Seus Registros</h2>
+                    <div class="registries-container" id="registries-container">
+                        <div class="loading"><i class="fas fa-spinner fa-spin"></i>
+                            <p>Carregando seus registros...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+
+    <!-- modal -->
+    <div class="modal" id="confirmationModal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3><i class="fas fa-exclamation-triangle"></i> Confirmar Exclusão</h3>
+            <p>Tem certeza que deseja excluir este registro? Esta ação não pode ser desfeita.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn">Cancelar</button>
+                <button class="modal-btn confirm-btn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.logo').addEventListener('click', () => window.location.href = '/');
+        document.getElementById("options").addEventListener("change", function () {
+            const v = this.value;
+            if (v === "login") window.location.href = "/login";
+            else if (v === "cadastro") window.location.href = "/cadastrar";
+            else if (v === "logout") window.location.href = "/logout";
+            else if (v === "perfil") window.location.href = "/perfil";
+        });
+
+        const modal = document.getElementById('confirmationModal');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const confirmBtn = document.querySelector('.confirm-btn');
+        let currentDelete = null;
+
+        function openModal() { modal.style.display = 'block'; document.body.style.overflow = 'hidden' }
+        function closeModalFunc() { modal.style.display = 'none'; document.body.style.overflow = 'auto'; currentDelete = null }
+
+        closeModal?.addEventListener('click', closeModalFunc);
+        cancelBtn?.addEventListener('click', closeModalFunc);
+        window.addEventListener('click', (e) => { if (e.target === modal) closeModalFunc(); });
+
+        async function carregarDadosUsuario() {
+            try {
+                const r = await fetch('/obterusuario');
+                if (!r.ok) throw new Error('não autorizado');
+                const usuario = await r.json();
+
+                document.getElementById("nome-atual").textContent = usuario.nome;
+                document.getElementById("email-atual").textContent = usuario.email;
+                document.getElementById("nome").value = usuario.nome;
+                document.getElementById("email").value = usuario.email;
+
+                // se for empresa
+                if (usuario.tipo === "empresa") {
+                    document.getElementById("empresa-section").style.display = "block";
+                    await carregarDadosEmpresa();
+                }
+
+                carregarRegistros();
+            } catch (err) {
+                console.error(err);
+                alert('Erro ao carregar usuário — faça login novamente.');
+                window.location.href = '/login';
+            }
+        }
+
+        async function carregarDadosEmpresa() {
+            try {
+                const r = await fetch('/obterempresa');
+                if (!r.ok) return;
+                const empresa = await r.json();
+                if (!empresa || Object.keys(empresa).length === 0) return;
+
+                // preencher campos
+                if (empresa.nome) document.getElementById("empresa-nome").value = empresa.nome;
+                if (empresa.cnpj) document.getElementById("empresa-cnpj").value = empresa.cnpj;
+                if (empresa.endereco) document.getElementById("empresa-endereco").value = empresa.endereco;
+                if (empresa.telefone) document.getElementById("empresa-telefone").value = empresa.telefone;
+                if (empresa.horario_funcionamento) document.getElementById("empresa-horario").value = empresa.horario_funcionamento;
+
+                // materiais (string separada por vírgula no banco)
+                if (empresa.material) {
+                    const arr = typeof empresa.material === 'string' ? empresa.material.split(',').map(s => s.trim()) : empresa.material;
+                    document.querySelectorAll('input[name="material"]').forEach(cb => {
+                        if (arr.includes(cb.value)) cb.checked = true;
+                    });
+                }
+            } catch (err) {
+                console.error('Erro ao obter empresa:', err);
+            }
+        }
+
+        async function carregarRegistros() {
+            try {
+                const rIdeias = await fetch('/obterideias');
+                const rEmpresas = await fetch('/obterempresas');
+                const ideias = await rIdeias.json();
+                const empresas = await rEmpresas.json();
+
+                const container = document.getElementById('registries-container');
+                container.innerHTML = '';
+                document.getElementById('ideias-count').textContent = ideias.length;
+                document.getElementById('empresas-count').textContent = empresas.length;
+
+                if (ideias.length === 0 && empresas.length === 0) {
+                    container.innerHTML = `<div class="empty-state"><i class="fas fa-inbox"></i><p>Nenhum registro encontrado.</p></div>`;
+                    return;
+                }
+
+                if (ideias.length > 0) {
+                    const s = document.createElement('div'); s.classList.add('registry-section');
+                    s.innerHTML = `<h4><i class="fas fa-lightbulb"></i> Ideias Cadastradas</h4>`;
+                    ideias.forEach(idea => {
+                        const div = document.createElement('div'); div.classList.add('registry-item');
+                        // use ideia.id (campo padrão)
+                        const id = idea.id || idea.cod || idea.ID;
+                        div.innerHTML = `
+              <div class="registry-info">
+                <h5>${idea.titulo}</h5>
+                <p>${(idea.descricao || '').substring(0, 60)}...</p>
+                <span class="registry-date">Criado em: ${new Date(idea.dataCriacao || Date.now()).toLocaleDateString('pt-BR')}</span>
+              </div>
+              <button class="delete-btn" data-tipo="ideia" data-id="${id}"><i class="fas fa-trash"></i></button>
+            `;
+                        s.appendChild(div);
+                    });
+                    container.appendChild(s);
+                }
+
+                if (empresas.length > 0) {
+                    const s = document.createElement('div'); s.classList.add('registry-section');
+                    s.innerHTML = `<h4><i class="fas fa-building"></i> Empresas Cadastradas</h4>`;
+                    empresas.forEach(emp => {
+                        // USE 'cod' para empresa (PK)
+                        const id = emp.cod || emp.id || emp.COD;
+                        const div = document.createElement('div'); div.classList.add('registry-item');
+                        div.innerHTML = `
+              <div class="registry-info">
+                <h5>${emp.nome}</h5>
+                <p>${(emp.endereco ? emp.endereco.substring(0, 60) + '...' : 'Sem endereço cadastrado')}</p>
+                <span class="registry-date">Cadastrado em: ${new Date(emp.dataCriacao || Date.now()).toLocaleDateString('pt-BR')}</span>
+              </div>
+              <button class="delete-btn" data-tipo="empresa" data-id="${id}"><i class="fas fa-trash"></i></button>
+            `;
+                        s.appendChild(div);
+                    });
+                    container.appendChild(s);
+                }
+
+                // eventos delete
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        currentDelete = this;
+                        openModal();
+                    });
+                });
+
+                // confirmar exclusão
+                confirmBtn?.addEventListener('click', async () => {
+                    if (!currentDelete) return;
+                    const tipo = currentDelete.dataset.tipo;
+                    const id = currentDelete.dataset.id;
+                    try {
+                        const res = await fetch(`/deletar/${tipo}/${id}`, { method: 'DELETE' });
+                        if (res.ok) {
+                            showNotification('Registro deletado com sucesso!', 'success');
+                            await carregarRegistros();
+                        } else {
+                            const txt = await res.text();
+                            console.error('Erro delete:', txt);
+                            showNotification('Erro ao deletar registro!', 'error');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        showNotification('Erro ao deletar registro!', 'error');
+                    }
+                    closeModalFunc();
+                });
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('registries-container').innerHTML = `<div class="error-state"><p>Erro ao carregar registros.</p></div>`;
+            }
+        }
+
+        function showNotification(message, type) {
+            const n = document.createElement('div');
+            n.className = `notification ${type}`;
+            n.innerHTML = `<span>${message}</span>`;
+            document.body.appendChild(n);
+            setTimeout(() => n.classList.add('show'), 100);
+            setTimeout(() => { n.classList.remove('show'); setTimeout(() => n.remove(), 300); }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', carregarDadosUsuario);
+    </script>
 </body>
 
 </html>
