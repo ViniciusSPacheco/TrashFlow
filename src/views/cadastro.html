@@ -59,6 +59,9 @@
 
     </div>
     <script>
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        })
         const listItems = document.getElementsByTagName('li');
 
         for (let i = 0; i < listItems.length; i++) {

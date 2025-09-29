@@ -14,7 +14,18 @@ header {
   box-shadow: 0 2px 15px rgba(46, 91, 11, 0.2);
   border-bottom: 1px solid rgba(98, 173, 18, 0.3);
 }
+.input-error {
+    border: 2px solid red;
+    animation: shake 0.3s;
+}
 
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
 .logo img {
   width: 80px;
   height: auto;

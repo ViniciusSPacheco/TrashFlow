@@ -5,6 +5,46 @@
     <meta charset="UTF-8">
     <title>Home - TrashFlow</title>
     <link rel="stylesheet" href="public/css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .cont {
+            text-align: center;
+            margin-top: 15px;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 22px;
+            position: relative;
+            top: 30px;
+        }
+
+        .input-error {
+            border: 2px solid red;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            50% {
+                transform: translateX(5px);
+            }
+
+            75% {
+                transform: translateX(-5px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -30,7 +70,6 @@
         </div>
     </header>
 
-
     <main>
         <main class="container">
             <div class="form-container">
@@ -38,45 +77,87 @@
                     <h1>Area do login</h1>
                     <p>Suas informações para o cadastro</p>
                 </div>
-                <form action="/login" method="POST">
+                <form id="loginForm" action="/login" method="POST">
                     <input type="email" name="email" placeholder="Digite seu email" required>
                     <input type="password" name="senha" placeholder="Digite sua senha" required>
-                    <button type="submit">Cadastrar</button>
+                    <button type="submit">Logar</button>
                 </form>
+                <p class="cont">Ainda não possui uma conta? Clique aqui!!</p>
             </div>
         </main>
     </main>
 
     <script>
-        const listItems = document.getElementsByTagName('li');
+        // --- Navegação ---
+        document.querySelector('.logo').addEventListener('click', () => {
+            window.location.href = "/";
+        });
+        document.querySelector('.cont').addEventListener('click', () => {
+            window.location.href = "/cadastrar";
+        });
 
+        const listItems = document.getElementsByTagName('li');
         for (let i = 0; i < listItems.length; i++) {
             listItems[i].addEventListener('click', function (event) {
                 const text = event.target.textContent;
 
-                console.log(text);
-
-                if (text === "Quem somos") {
-                    window.location.href = "/sobre";
-                } else if (text === "Ideias de Reciclagem") {
-                    window.location.href = "/cadastroideia";
-                } else if (text === "Empresas cadastradas") {
-                    window.location.href = "/cadastroempresa";
-                } else if (text === "Contato") {
-                    window.location.href = "/contato";
-                }
+                if (text === "Quem somos") window.location.href = "/sobre";
+                else if (text === "Ideias de Reciclagem") window.location.href = "/cadastroideia";
+                else if (text === "Empresas cadastradas") window.location.href = "/cadastroempresa";
+                else if (text === "Contato") window.location.href = "/contato";
             });
         }
 
         document.getElementById("options").addEventListener("change", function () {
             const valor = this.value;
 
-            if (valor === "login") {
-                window.location.href = "/login";
-            } else if (valor === "cadastro") {
-                window.location.href = "/cadastrar";
-            } else if (valor === "logout") {
-                window.location.href = "/logout";
+            if (valor === "login") window.location.href = "/login";
+            else if (valor === "cadastro") window.location.href = "/cadastrar";
+            else if (valor === "logout") window.location.href = "/logout";
+        });
+
+
+        const loginForm = document.getElementById("loginForm");
+        const inputs = loginForm.querySelectorAll("input");
+
+        loginForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(loginForm);
+            const dados = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(dados)
+                });
+
+                if (res.redirected) {
+
+                    window.location.href = res.url;
+                } else if (!res.ok) {
+
+                    inputs.forEach(input => input.classList.add("input-error"));
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email ou senha inválidos',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }).then(() => {
+
+                        inputs.forEach(input => input.classList.remove("input-error"));
+                    });
+                }
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro de conexão',
+                    text: 'Não foi possível conectar ao servidor',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
             }
         });
     </script>
