@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   color: #3a3a3a;
-    line-height: 1.6;
+  line-height: 1.6;
 }
 
 /* HEADER COM FUNDO TRANSLÚCIDO E SOBREPOSIÇÃO */
@@ -17,11 +17,8 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.5); /* branco translúcido */
-
+  background-color: rgba(255, 255, 255, 0.5);
   z-index: 10;
-
-
 }
 
 .logo img {
@@ -102,9 +99,6 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
-
-
 
 .hero {
     height: 100vh;
@@ -453,16 +447,63 @@ a {
     color: #4a9c0d !important;
 }
 
+/* Estados de carregamento e erro */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4a9c0d;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.no-ideas, .carousel-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    text-align: center;
+    color: #666;
+}
+
+.no-ideas i, .carousel-error i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.no-ideas h3, .carousel-error h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
 /* FAQ Section */
 .faq-section {
     padding: 6rem 0;
     background-color: white;
+}
 
-    h2{
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
+.faq-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .faq-container {
@@ -691,5 +732,32 @@ a {
     
     .hero h1 {
         font-size: 1.8rem;
+    }
+}
+
+/* Container de vídeo para iframe do YouTube */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Responsividade para vídeos */
+@media (max-width: 768px) {
+    .video-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-container {
+        height: 180px;
     }
 }

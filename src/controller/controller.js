@@ -22,8 +22,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 class Controlador {
-  // ---- views ----
   Inicio(req, res) { res.sendFile(path.resolve(__dirname, "../views/home2.html")); }
+  Ademir(req, res) { res.sendFile(path.resolve(__dirname, "../views/adm.html")); }
   atualizar(req, res) { res.sendFile(path.resolve(__dirname, "../views/atualizar.html")); }
   Contato(req, res) { res.sendFile(path.resolve(__dirname, "../views/contato.html")); }
   Sobre(req, res) { res.sendFile(path.resolve(__dirname, "../views/somos.html")); }
@@ -39,15 +39,35 @@ class Controlador {
   Logar(req, res) {
     const { email, senha } = req.body;
     const query = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
+
     db.query(query, [email, senha], (error, results) => {
-      if (error) { console.error(error); return res.status(500).json({ error: "Erro ao fazer login" }); }
-      if (results.length === 0) return res.status(401).json({ error: "Credenciais inválidas" });
+      if (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Erro ao fazer login" });
+      }
+
+      if (results.length === 0) {
+        return res.status(401).json({ error: "Credenciais inválidas" });
+      }
 
       const { permissao, cod } = results[0];
       const dados = { tipo: permissao, id: cod };
-      res.cookie("permissao", JSON.stringify(dados), { httpOnly: false, maxAge: 3600000 });
-      return permissao === "empresa" ? res.redirect("/info") : res.redirect("/");
+
+
+      res.cookie("permissao", JSON.stringify(dados), {
+        httpOnly: false,
+        maxAge: 3600000
+      });
+
+      if (permissao === "empresa") {
+        return res.redirect("/info");
+      } else if (permissao === "adm") {
+        return res.redirect("/adm");
+      } else {
+        return res.redirect("/");
+      }
     });
+
   }
   Deslogar(req, res) {
     res.clearCookie("permissao");
@@ -116,9 +136,8 @@ class Controlador {
     });
   }
 
-  // ---- ideias ----
   CadastrarIdeia(req, res) {
-    const { titulo, descricao, passo } = req.body;
+    const { titulo, descricao, passo, url } = req.body;
     const cookie = req.cookies.permissao;
     if (!cookie) return res.redirect("/login");
     const { id } = JSON.parse(cookie);
@@ -126,8 +145,8 @@ class Controlador {
     let imgPath = null;
     if (req.file) imgPath = "/imagens/" + req.file.filename;
 
-    const query = `INSERT INTO ideias (titulo, descricao, passo, img, usuario_cod) VALUES (?, ?, ?, ?, ?)`;
-    db.query(query, [titulo, descricao, passo, imgPath, id], (err) => {
+    const query = `INSERT INTO ideias (titulo, descricao, passo, url, img, usuario_cod) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.query(query, [titulo, descricao, passo, url, imgPath, id], (err) => {
       if (err) { console.error(err); return res.status(500).json({ error: "Erro ao cadastrar ideia" }); }
       return res.redirect("/");
     });
@@ -353,6 +372,115 @@ class Controlador {
       return res.status(500).send("Erro interno no servidor");
     }
   }
+
+  // ---- ADMIN ----
+  Admin(req, res) {
+    try {
+      const cookie = req.cookies.permissao;
+      if (!cookie) return res.status(403).send("Permissão não encontrada");
+
+      const { tipo } = JSON.parse(cookie);
+      if (tipo !== "adm") return res.status(403).send("Acesso restrito a administradores");
+
+      const acao = (req.query && req.query.acao) || (req.body && req.body.acao);
+      const id = (req.query && req.query.id) || (req.body && req.body.id);
+
+      console.log(`[ADMIN] Método: ${req.method} | Ação: ${acao || "listar"} | ID: ${id || "-"}`);
+
+      if (!acao) {
+        db.query("SELECT * FROM cacheideia WHERE autorizado = 0", (err, results) => {
+          if (err) {
+            console.error("[ADMIN] Erro ao buscar pendentes:", err);
+            return res.status(500).send("Erro ao buscar ideias pendentes");
+          }
+
+          if (results.length === 0) {
+            return res.json({ message: "Nenhuma ideia pendente encontrada" });
+          }
+
+          return res.json(results);
+        });
+        return;
+      }
+
+      if (acao === "aprovar") {
+        if (!id) return res.status(400).send("ID não informado");
+        db.query("SELECT * FROM cacheideia WHERE cod = ?", [id], (err, rows) => {
+          if (err) {
+            console.error("[ADMIN] Erro ao buscar ideia:", err);
+            return res.status(500).send("Erro ao buscar ideia");
+          }
+
+          if (rows.length === 0) return res.status(404).send("Ideia não encontrada");
+
+          const ideia = rows[0];
+          const insert = `
+          INSERT INTO ideias (titulo, descricao, passo,url, img, usuario_cod)
+          VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+          db.query(
+            insert,
+            [ideia.titulo, ideia.descricao, ideia.passo, ideia.url, ideia.img, ideia.usuario_cod],
+            (err2) => {
+              if (err2) {
+                console.error("[ADMIN] Erro ao aprovar ideia:", err2);
+                return res.status(500).send("Erro ao aprovar ideia");
+              }
+
+              db.query("UPDATE cacheideia SET autorizado = 1 WHERE cod = ?", [id], (err3) => {
+                if (err3) {
+                  console.error("[ADMIN] Erro ao atualizar status:", err3);
+                  return res.status(500).send("Erro ao atualizar status da ideia");
+                }
+
+                console.log(`[ADMIN] Ideia ${id} aprovada com sucesso`);
+                return res.json({ success: true, message: "Ideia aprovada com sucesso" });
+              });
+            }
+          );
+        });
+        return;
+      }
+
+      if (acao === "recusar") {
+        if (!id) return res.status(400).send("ID não informado");
+
+        db.query("UPDATE cacheideia SET autorizado = -1 WHERE cod = ?", [id], (err) => {
+          if (err) {
+            console.error("[ADMIN] Erro ao recusar ideia:", err);
+            return res.status(500).send("Erro ao recusar ideia");
+          }
+
+          console.log(`[ADMIN] Ideia ${id} recusada`);
+          return res.json({ success: true, message: "Ideia recusada" });
+        });
+        return;
+      }
+
+      return res.status(400).send("Ação inválida");
+    } catch (err) {
+      console.error("[ADMIN] Erro interno:", err);
+      return res.status(500).send("Erro interno no servidor");
+    }
+  }
+
+  CadastrarIdeiaCache(req, res) {
+    const { titulo, descricao, passo, url } = req.body;
+    const cookie = req.cookies.permissao;
+    if (!cookie) return res.redirect("/login");
+    const { id } = JSON.parse(cookie);
+
+    let imgPath = null;
+    if (req.file) imgPath = "/imagens/" + req.file.filename;
+
+    const query = `INSERT INTO cacheideia (titulo, descricao, passo, url, img, usuario_cod) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.query(query, [titulo, descricao, passo, url, imgPath, id], (err) => {
+      if (err) { console.error(err); return res.status(500).json({ error: "Erro ao cadastrar ideia" }); }
+      return res.redirect("/");
+    });
+  }
+
 
 
 }

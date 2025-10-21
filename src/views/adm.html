@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel da Administração - TrashFlow</title>
+    <link rel="stylesheet" href="../views/public/css/adm.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Open+Sans:wght@600;700&display=swap');
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #3a3a3a;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 700;
+            color: #2e5b0b;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo img {
+            width: 80px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 40px;
+            font-size: 16px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li:hover {
+            color: #62ad12;
+        }
+
+        .btn select {
+            appearance: none;
+            background-color: #4a9c0d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .admin-panel {
+            max-width: 1200px;
+            margin: 140px auto 60px;
+            padding: 0 20px;
+        }
+
+        .admin-panel h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        .sub {
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+        }
+
+        .ideas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 2rem;
+        }
+
+        .idea-card {
+            background: #f5f9f2;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 156, 13, 0.1);
+        }
+
+        .idea-info h3 {
+            color: #2e5b0b;
+            margin-bottom: 10px;
+        }
+
+        .idea-info .desc {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .file-link {
+            display: inline-block;
+            margin-top: 8px;
+            text-decoration: none;
+            color: #4a9c0d;
+            font-weight: 600;
+        }
+
+        .file-link:hover {
+            text-decoration: underline;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .btn-approve,
+        .btn-reject {
+            flex: 1;
+            margin: 0 5px;
+            padding: 10px 0;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-approve {
+            background-color: #4a9c0d;
+        }
+
+        .btn-reject {
+            background-color: #c52b2b;
+        }
+
+        .btn-approve:hover {
+            background-color: #3e850b;
+        }
+
+        .btn-reject:hover {
+            background-color: #a81e1e;
+        }
+
+        .no-ideas,
+        .loading,
+        .error {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="./public/TrashflowLogo 2.png" alt="TrashFlow Logo">
+        </div>
+        <div class="navbar">
+            <ul>
+                <li>Quem somos</li>
+                <li>Ideias de Reciclagem</li>
+                <li>Empresas cadastradas</li>
+                <li>Contato</li>
+            </ul>
+        </div>
+
+        <div class="btn">
+            <select id="options" name="options">
+                <option value="login">Entrar</option>
+                <option value="cadastro">Cadastrar</option>
+                <option value="logout">Deslogar</option>
+                <option value="perfil">Meu perfil</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="admin-panel">
+        <h1>Painel da Administração</h1>
+        <p class="sub">Gerencie abaixo as ideias pendentes de aprovação enviadas pelos usuários.</p>
+
+        <section class="ideas-container" id="ideas-container">
+            <div class="loading">Carregando ideias...</div>
+        </section>
+    </main>
+
+    <script>
+        // Navegação do header
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") window.location.href = "/sobre";
+                else if (text === "Ideias de Reciclagem") window.location.href = "/cadastroideia";
+                else if (text === "Empresas cadastradas") window.location.href = "/cadastroempresa";
+                else if (text === "Contato") window.location.href = "/contato";
+            });
+        }
+        document.querySelector('.logo').addEventListener('click', () => window.location.href = "/");
+
+        document.getElementById("options").addEventListener("change", async function () {
+            const valor = this.value;
+            if (valor === "login") window.location.href = "/login";
+            else if (valor === "cadastro") window.location.href = "/cadastrar";
+            else if (valor === "logout") window.location.href = "/logout";
+            else if (valor === "perfil") {
+                try {
+                    const resposta = await fetch('/obterusuario');
+                    if (resposta.ok) window.location.href = "/perfil";
+                    else window.location.href = "/login";
+                } catch (erro) {
+                    console.error("Erro ao verificar autenticação:", erro);
+                    window.location.href = "/login";
+                }
+            }
+        });
+
+        // ---------------------- ADMIN PANEL SCRIPT ----------------------
+        async function carregarIdeias() {
+            const container = document.getElementById("ideas-container");
+            try {
+                const resp = await fetch("/admin");
+                if (!resp.ok) throw new Error("Erro ao buscar ideias");
+                const ideias = await resp.json();
+
+                if (!ideias.length) {
+                    container.innerHTML = "<p class='no-ideas'>Nenhuma ideia pendente no momento.</p>";
+                    return;
+                }
+
+                container.innerHTML = ideias.map(ideia => `
+          <div class="idea-card">
+            <div class="idea-info">
+              <h3>${ideia.titulo}</h3>
+              <p class="desc">${ideia.descricao}</p>
+              <p><strong>Passo:</strong> ${ideia.passo}</p>
+              ${ideia.img ? `<a href="/uploads/${ideia.img}" target="_blank" class="file-link">📎 Ver arquivo</a>` : ""}
+            </div>
+            <div class="actions">
+              <button class="btn-approve" onclick="acaoIdeia(${ideia.cod}, 'aprovar')">Aprovar</button>
+              <button class="btn-reject" onclick="acaoIdeia(${ideia.cod}, 'recusar')">Recusar</button>
+            </div>
+          </div>
+        `).join("");
+            } catch (erro) {
+                console.error(erro);
+                container.innerHTML = "<p class='error'>Erro ao carregar ideias.</p>";
+            }
+        }
+
+        async function acaoIdeia(id, acao) {
+            if (!confirm(`Deseja realmente ${acao} esta ideia?`)) return;
+
+            try {
+                const resp = await fetch("/admin", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id, acao })
+                });
+                const result = await resp.json();
+                alert(result.message || "Ação concluída!");
+                carregarIdeias();
+            } catch (erro) {
+                alert("Erro ao enviar ação.");
+                console.error(erro);
+            }
+        }
+
+        carregarIdeias();
+    </script>
+</body>
+
+</html>

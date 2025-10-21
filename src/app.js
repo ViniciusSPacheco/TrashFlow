@@ -33,6 +33,7 @@ function somenteEmpresa(req, res, next) {
   }
 }
 
+
 app.get("/", (req, res) => Controller.Inicio(req, res));// funcionando
 app.get("/info", (req, res) => Controller.Info(req, res));// funcionando
 app.get("/login", (req, res) => Controller.Login(req, res));//funcionando
@@ -48,7 +49,7 @@ app.get("/contato", (req, res) => Controller.Contato(req, res));//funcionando
 app.post("/login", (req, res) => Controller.Logar(req, res)); //funcoonando
 app.post("/cadastrar", (req, res) => Controller.Cadastrar(req, res)); // funcionando
 app.post("/cadastrarideia", upload.single("img"), (req, res) =>
-  Controller.CadastrarIdeia(req, res)
+  Controller.CadastrarIdeiaCache(req, res)
 );//funcionando
 app.post("/cadastroempresa", somenteEmpresa, (req, res) =>
   Controller.CadastroEmpresa(req, res)
@@ -75,6 +76,8 @@ app.get("/obterempresa", (req, res) => Controller.ObterEmpresa(req, res));
 // Rota para atualizar empresa (form)
 app.post("/atualizarempresa", somenteEmpresa, (req, res) => Controller.AtualizarEmpresa(req, res));
 app.post("/atualizarideia", (req, res) => Controller.AtualizarIdeia(req, res));
+app.all("/admin", (req, res) => Controller.Admin(req, res));
+app.get("/adm", (req, res) => Controller.Ademir(req, res));
 app.listen(3030, (error) => {
   if (!error) {
     console.log("Servidor rodando nesta porta: http://localhost:3030/");
