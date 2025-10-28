@@ -6,6 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Ideia - Trash-Flow</title>
     <link rel="stylesheet" href="public/css/formeideias.css">
+    <style>
+        /* Estilos para o popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            animation: popupAppear 0.3s ease-out;
+        }
+
+        @keyframes popupAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .popup-icon {
+            font-size: 48px;
+            color: #4a9c0d;
+            margin-bottom: 15px;
+        }
+
+        .popup-title {
+            font-size: 24px;
+            color: #2e5b0b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .popup-message {
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-size: 22px;
+        }
+
+        .popup-button {
+            background-color: #4a9c0d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-button:hover {
+            background-color: #3e850b;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +105,7 @@
     </header>
 
     <main class="container">
-        <form class="form-ideias" action="/cadastrarideia" method="POST" enctype="multipart/form-data">
+        <form class="form-ideias" id="ideiaForm" method="POST" enctype="multipart/form-data">
             <h2>Compartilhe sua Ideia</h2>
 
             <div class="form-group">
@@ -41,7 +115,7 @@
 
             <div class="form-group">
                 <label for="descricao">Descrição *</label>
-                <textarea id="descricao" name="descricao" rows="5" required></textarea>
+                <input type="text" id="descricao" name="descricao" required></textarea>
             </div>
 
             <div class="form-group">
@@ -50,8 +124,8 @@
             </div>
 
             <div class="form-group">
-                <label for="passo">Insira alguma url de video(opcional)</label>
-                <input type="text" id="url" name="url" required>
+                <label for="url">Insira alguma url de video (opcional)</label>
+                <input type="text" id="url" name="url">
             </div>
 
             <div class="form-group">
@@ -63,7 +137,21 @@
         </form>
     </main>
 
+    <!-- Popup de Confirmação -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <div class="popup-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="popup-title">Ideia Enviada!</h3>
+            <p class="popup-message">Sua ideia foi enviada para aprovação. Agradecemos sua contribuição para um planeta
+                mais sustentável!</p>
+            <button class="popup-button" id="popupOkButton">OK</button>
+        </div>
+    </div>
+
     <script>
+        // Navegação do menu
         const listItems = document.getElementsByTagName('li');
 
         for (let i = 0; i < listItems.length; i++) {
@@ -84,6 +172,7 @@
             });
         }
 
+        // Dropdown de login/cadastro
         document.getElementById("options").addEventListener("change", function () {
             const valor = this.value;
 
@@ -94,6 +183,84 @@
             } else if (valor === "logout") {
                 window.location.href = "/logout";
             }
+        });
+
+        // Função para mostrar o popup
+        function showPopup() {
+            const popup = document.getElementById('popupOverlay');
+            popup.style.display = 'flex';
+
+            // Adicionar Font Awesome dinamicamente se não estiver carregado
+            if (!document.querySelector('link[href*="font-awesome"]')) {
+                const faLink = document.createElement('link');
+                faLink.rel = 'stylesheet';
+                faLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+                document.head.appendChild(faLink);
+            }
+        }
+
+        // Função para esconder o popup
+        function hidePopup() {
+            const popup = document.getElementById('popupOverlay');
+            popup.style.display = 'none';
+        }
+
+        // Event listener para o botão OK do popup
+        document.getElementById('popupOkButton').addEventListener('click', function () {
+            hidePopup();
+            // Redirecionar ou limpar o formulário se necessário
+            // window.location.href = "/ideias"; // Descomente se quiser redirecionar
+        });
+
+        // Fechar popup ao clicar fora
+        document.getElementById('popupOverlay').addEventListener('click', function (e) {
+            if (e.target === this) {
+                hidePopup();
+            }
+        });
+
+        // Manipulação do envio do formulário
+        document.getElementById('ideiaForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Aqui você pode adicionar a lógica de envio para o servidor
+            // Por enquanto, vamos apenas simular o envio bem-sucedido
+
+            // Simular delay de envio
+            setTimeout(function () {
+                // Mostrar popup de sucesso
+                showPopup();
+
+                // Limpar formulário (opcional)
+                document.getElementById('ideiaForm').reset();
+
+                // Se quiser enviar realmente para o servidor, descomente:
+                /*
+                const formData = new FormData(document.getElementById('ideiaForm'));
+                fetch('/cadastrarideia', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showPopup();
+                        document.getElementById('ideiaForm').reset();
+                    } else {
+                        alert('Erro ao enviar ideia: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao enviar ideia');
+                });
+                */
+            }, 1000);
+        });
+
+        // Clique no logo para home
+        document.querySelector('.logo').addEventListener('click', function () {
+            window.location.href = "/";
         });
     </script>
 </body>
