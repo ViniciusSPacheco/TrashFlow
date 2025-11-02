@@ -8,8 +8,11 @@ h1, h2, h3, h4 {
     color: #2e5b0b;
     font-weight: 600;
 }
+body{
+    
+}
 header {
-font-family: default;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -121,6 +124,10 @@ font-family: default;
     font-size: 1.5rem;
     max-width: 700px;
     margin: 0 auto;
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    text-align: center;
+    
 }
 
 /* Contact Info */
@@ -221,7 +228,7 @@ font-family: default;
 .form-content p {
     color: #555;
     margin-bottom: 2rem;
-    font-size: 1.1rem;
+    font-size: 18px
 }
 
 .contact-form {
@@ -420,11 +427,14 @@ font-family: default;
 
 .footer-links li {
     margin-bottom: 0.8rem;
+    
 }
 
 .footer-links a {
     opacity: 0.8;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .footer-links a:hover {

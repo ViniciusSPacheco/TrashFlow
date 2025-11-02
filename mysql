@@ -13,6 +13,7 @@ CREATE TABLE ideias (
     titulo VARCHAR(255) NOT NULL,
     descricao TEXT NOT NULL,
     passo VARCHAR(255) NOT NULL,
+    url VARCHAR(255),
     img VARCHAR(255),
     usuario_cod INT,
     FOREIGN KEY (usuario_cod) REFERENCES usuario(cod) ON DELETE CASCADE
@@ -39,6 +40,7 @@ CREATE TABLE cacheideia (
   descricao TEXT NOT NULL,
   passo TEXT,
   img VARCHAR(255),
+  url VARCHAR(255),
   usuario_cod INT NOT NULL,
   autorizado TINYINT DEFAULT 0,
   criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
