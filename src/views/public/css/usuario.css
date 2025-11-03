@@ -211,16 +211,21 @@ header {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(74, 156, 13, 0.15);
 }
+label{
+  font-size: 22px;
+}
 
 .form-section h2, .registries-section h2 {
   color: #4a9c0d;
   margin-bottom: 20px;
-  font-size: 20px;
+  font-size: 26px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-
+p{
+  font-size: 22px;
+}
 .update-form .form-group, .update-empresa-form .form-group {
   position: relative;
   margin-bottom: 15px;
@@ -233,6 +238,7 @@ header {
   border: 1px solid #ccc;
   font-family: 'Poppins', sans-serif;
   transition: all 0.3s ease;
+  font-size: 18px;
 }
 
 .update-form input:focus, .update-empresa-form input:focus {

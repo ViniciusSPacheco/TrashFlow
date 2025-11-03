@@ -246,6 +246,7 @@ header {
 .form-group label {
     font-weight: 500;
     color: #3a3a3a;
+    font-size: 18px;
 }
 
 .form-group input,
