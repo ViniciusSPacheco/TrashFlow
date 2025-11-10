@@ -56,7 +56,6 @@
         </header>
 
         <main>
-            <!-- Hero Section -->
             <section class="contact-hero">
                 <div class="hero-content">
                     <h1>Fale Conosco</h1>
@@ -64,7 +63,6 @@
                 </div>
             </section>
 
-            <!-- Contact Info -->
             <section class="contact-info">
                 <div class="info-container">
                     <div class="info-card">
@@ -99,7 +97,6 @@
                 </div>
             </section>
 
-            <!-- Contact Form -->
             <section class="contact-form-section">
                 <div class="form-container">
                     <div class="form-content">
@@ -137,55 +134,13 @@
                     </div>
 
                     <div class="form-image">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                        <img src="https://static.vecteezy.com/ti/fotos-gratis/p1/14402528-conceito-salvar-o-mundo-salvar-o-meio-ambiente-o-mundo-esta-na-grama-do-fundo-verde-bokeh-foto.jpg"
                             alt="Equipe TrashFlow">
-                    </div>
-                </div>
-            </section>
-
-            <!-- FAQ Section -->
-            <section class="contact-faq">
-                <div class="faq-container">
-                    <h2>Perguntas frequentes</h2>
-
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Quanto tempo leva para receber uma resposta?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Nossa equipe normalmente responde em até 24 horas úteis. Caso sua demanda seja urgente,
-                                recomendamos entrar em contato por telefone.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Vocês fazem parcerias com empresas?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Sim, estamos sempre abertos a novas parcerias com empresas que compartilham nossos
-                                valores de sustentabilidade. Entre em contato pelo formulário ou email selecionando a
-                                opção "Parceria".</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            Como posso contribuir com ideias de reciclagem?
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="faq-answer">
-                            <p>Você pode enviar suas ideias pelo formulário de contato selecionando "Sugestão" no campo
-                                assunto. Adoramos receber novas ideias da comunidade!</p>
-                        </div>
                     </div>
                 </div>
             </section>
         </main>
 
-        <!-- Footer -->
         <footer class="site-footer">
             <div class="footer-content">
                 <div class="footer-logo">
@@ -220,11 +175,40 @@
     </div>
 
     <script>
+        const contactForm = document.querySelector('.contact-form');
+        contactForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const resposta = await fetch('/enviar-contato', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (resposta.ok) {
+                    alert('✅ Mensagem enviada com sucesso!');
+                    contactForm.reset();
+                } else {
+                    alert('❌ Erro ao enviar mensagem. Tente novamente.');
+                }
+            } catch (erro) {
+                console.error("Erro no envio:", erro);
+                alert('⚠️ Ocorreu um erro inesperado.');
+            }
+        });
 
         document.querySelector('.logo').addEventListener('click', () => {
             window.location.href = "/";
-        })
-        // Navegação do menu
+        });
+
         const listItems = document.getElementsByTagName('li');
         for (let i = 0; i < listItems.length; i++) {
             listItems[i].addEventListener('click', function (event) {
@@ -241,62 +225,25 @@
             });
         }
 
-        // Navegação do dropdown
-
-
-        // FAQ Accordion
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const icon = question.querySelector('i');
-
-                // Toggle answer
-                if (answer.style.maxHeight) {
-                    answer.style.maxHeight = null;
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                } else {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                }
-            });
-        });
-
-        // Form submission
-        const contactForm = document.querySelector('.contact-form');
-        contactForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Simulação de envio
-            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-            this.reset();
-        });
-        // ===== MENU DO USUÁRIO - MÓDULO REUTILIZÁVEL =====
         const userIcon = document.querySelector('.user-icon-wrapper');
         const userDropdown = document.querySelector('.user-dropdown');
 
-        // Abrir/fechar dropdown
         userIcon.addEventListener('click', function (e) {
             e.stopPropagation();
             userDropdown.classList.toggle('active');
         });
 
-        // Fechar dropdown ao clicar fora
         document.addEventListener('click', function () {
             userDropdown.classList.remove('active');
         });
 
-        // Prevenir fechamento ao clicar dentro do dropdown
         userDropdown.addEventListener('click', function (e) {
             e.stopPropagation();
         });
 
-        // Ações do dropdown
         document.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', async function () {
                 const action = this.getAttribute('data-action');
-
                 if (action === "login") {
                     window.location.href = "/login";
                 } else if (action === "cadastro") {
@@ -316,13 +263,9 @@
                         window.location.href = "/login";
                     }
                 }
-
-                // Fechar dropdown após seleção
                 userDropdown.classList.remove('active');
             });
         });
-
-
     </script>
 </body>
 

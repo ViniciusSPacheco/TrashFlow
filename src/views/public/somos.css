@@ -104,7 +104,7 @@ body {
 h1, h2, h3, h4 {
     color: #2e5b0b;
     font-weight: 600;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 h1 {
@@ -206,19 +206,19 @@ h3 {
 p {
     margin-bottom: 18px;
     font-weight: 300;
-    font-family: 'Poppins', sans-serif;
+       font-family: "Open Sans", sans-serif;
 }
 
 /* Seções */
 main {
     margin-top: 90px; /* compensar o header fixo */
     overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
+      font-family: "Open Sans", sans-serif;
 }
 
 section {
     padding: 5rem 10%;
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 /* Hero Section */
@@ -287,14 +287,14 @@ section {
     border-radius: 20px;
     padding: 3rem;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 .mission-card {
     flex: 1;
     padding: 2rem;
     transition: all 0.3s ease;
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 .mission-card:hover {
@@ -310,7 +310,7 @@ section {
     justify-content: center;
     background-color: rgba(74, 156, 13, 0.1);
     border-radius: 50%;
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 /* About Section */
@@ -319,7 +319,7 @@ section {
     align-items: center;
     gap: 4rem;
     background-color: #f5f9f2;
-    font-family: 'Poppins', sans-serif;
+       font-family: "Open Sans", sans-serif;
 }
 
 .about-image {
@@ -337,19 +337,19 @@ section {
 
 .about-content {
     flex: 1;
-    font-family: 'Poppins', sans-serif;
+       font-family: "Open Sans", sans-serif;
 }
 
 .stats-container {
     display: flex;
     justify-content: space-between;
     margin-top: 2rem;
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 .stat-item {
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+       font-family: "Open Sans", sans-serif;
 }
 
 .stat-number {
@@ -368,7 +368,7 @@ section {
 .impact-section {
     text-align: center;
     background-color: white;
-    font-family: 'Poppins', sans-serif;
+        font-family: "Open Sans", sans-serif;
 }
 
 .impact-grid {

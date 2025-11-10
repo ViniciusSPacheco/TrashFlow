@@ -402,21 +402,22 @@
 
         })
 
-        listItems[i].addEventListener('click', function (event) {
-            const text = event.target.textContent;
+        const listItems = document.getElementsByTagName('li');
+        for (let i = 0; i < listItems.length; i++) {
+            listItems[i].addEventListener('click', function (event) {
+                const text = event.target.textContent;
+                if (text === "Quem somos") {
+                    window.location.href = "/sobre";
+                } else if (text === "Ideias de Reciclagem") {
+                    window.location.href = "/cadastroideia";
+                } else if (text === "Empresas cadastradas") {
+                    window.location.href = "/cadastroempresa";
+                } else if (text === "Contato") {
+                    window.location.href = "/contato";
+                }
+            });
 
-            console.log(text);
-
-            if (text === "Quem somos") {
-                window.location.href = "/sobre";
-            } else if (text === "Ideias de Reciclagem") {
-                window.location.href = "/cadastroideia";
-            } else if (text === "Empresas cadastradas") {
-                window.location.href = "/cadastroempresa";
-            } else if (text === "Contato") {
-                window.location.href = "/contato";
-            }
-        });
+        }
 
 
 

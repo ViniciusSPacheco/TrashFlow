@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const nodemailer = require('nodemailer');
 const app = express();
 const { Controller, upload } = require("./controller/controller");
 
@@ -11,6 +12,54 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "views")));
 app.use('/imagens', express.static(path.join(__dirname, 'imagens')));
+
+app.post('/enviar-contato', async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  console.log(`
+=============================
+📩 NOVA MENSAGEM DE CONTATO
+Nome: ${name}
+Email: ${email}
+Assunto: ${subject}
+Mensagem: ${message}
+=============================
+`);
+
+  try {
+    // Configuração do transporter
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "ofcsmurilo@gmail.com", // ⚠️ substitua
+        pass: "pxiwkqrzcahveixn"
+
+      }
+    });
+
+    // Monta o e-mail
+    await transporter.sendMail({
+      from: `"TrashFlow Contato" <ofcsmurilo@gmail.com>`,
+      to: "ofcsmurilo@gmail.com",
+      subject: `Nova mensagem de contato: ${subject}`,
+      text: `
+De: ${name} (${email})
+Assunto: ${subject}
+
+Mensagem:
+${message}
+            `
+    });
+
+    console.log("✅ Email enviado com sucesso!");
+    res.status(200).json({ message: "Mensagem enviada com sucesso!" });
+  } catch (erro) {
+    console.error("❌ Erro ao enviar email:", erro);
+    res.status(500).json({ error: "Erro ao enviar email." });
+  }
+});
 
 function somenteEmpresa(req, res, next) {
   try {

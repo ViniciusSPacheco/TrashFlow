@@ -243,20 +243,38 @@
 
         // Botão para adicionar nova ideia
 
+
+        carregarEmpresas();
+
+        carregarEmpresas();
+
+        // Função para verificar se o usuário está logado
+        async function verificarLogin() {
+            try {
+                const resposta = await fetch('/obterusuario');
+                if (resposta.ok) {
+                    return true; // Usuário logado
+                } else {
+                    return false; // Usuário não logado
+                }
+            } catch (erro) {
+                console.error("Erro ao verificar login:", erro);
+                return false;
+            }
+        }
+
+        // Evento do botão "Quero cadastrar empresa referência"
         const addButton = document.querySelector('.add-idea-btn');
-        addButton.addEventListener('click', () => {
-            const cookie = getCookie("permissao");
+        addButton.addEventListener('click', async () => {
+            const logado = await verificarLogin();
 
-            if (cookie) {
-                // Tem cookie => redireciona para adicionar ideia
-                window.location.href = "/cadastrar";
+            if (logado) {
+                window.location.href = "/cadastroempresaform";
             } else {
-                // Não tem cookie => redireciona para login
-
                 window.location.href = "/cadastrar";
             }
         });
-        carregarEmpresas();
+
     </script>
 </body>
 
